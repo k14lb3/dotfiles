@@ -11,6 +11,10 @@
 
 Personal dotfiles config.
 
----
+## ToDo
+
+- [ ] Create install script.
+- **Doc**
+  - [ ] Add screenshots (alacritty, neofetch, btop, etc...).
 
 (⌐■_■)
