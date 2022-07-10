@@ -3,7 +3,7 @@ export TERMINAL="alacritty"
 export EDITOR="nvim"
 export VISUAL="nvim"
 
-if [ $(uname -r | sed -n 's/.*\( *Microsoft *\).*/\1/ip') ]; then
+if uname -r | grep -qi "microsoft"; then
   export WINHOME="$(wslpath "$(powershell.exe -NoProfile -NonInteractive -Command "\$Env:UserProfile")")"
 fi
 

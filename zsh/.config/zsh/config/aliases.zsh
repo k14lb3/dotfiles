@@ -3,7 +3,7 @@ case "$OSTYPE" in
     alias cpwd="pwd | tr -d '\n' | pbcopy"
   ;;
   linux*)
-    if [ $(uname -r | sed -n 's/.*\( *Microsoft *\).*/\1/ip') ]; then
+    if uname -r | grep -qi "microsoft"; then
       alias cpt="nvim $WINHOME/copy"
       alias cpwd="pwd | tr -d '\n' | clip.exe"
     else
