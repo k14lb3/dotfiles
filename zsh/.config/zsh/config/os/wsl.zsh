@@ -1,6 +1,6 @@
 # Exports
-export WINHOME="$(wslpath "$(powershell.exe -NoProfile -NonInteractive -Command "\$Env:UserProfile")")"
+export WINHOME=$(wslpath "$(wslvar USERPROFILE)")
 
 # Aliases
-alias cpt="nvim $WINHOME/copy"
 alias cpwd="pwd | tr -d '\n' | clip.exe"
+alias cpt="nvim $WINHOME/copy"
