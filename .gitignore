@@ -1,3 +1,4 @@
 *.log
+**/packer_compiled.lua
 **/.zcompdump*
 zsh/**/plugins
