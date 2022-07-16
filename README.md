@@ -13,7 +13,15 @@ Personal dotfiles config.
 
 ## Screenshots
 
+### Terminal
+
 ![terminal](./assets/terminal.png)
+
+### Neovim
+
+![neovim-dashboard](./assets/neovim-dashboard.png)
+
+![neovim](./assets/neovim.png)
 
 ## ToDo
 
