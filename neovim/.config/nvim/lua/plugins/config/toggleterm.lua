@@ -2,7 +2,7 @@ local config = function()
   local toggleterm = require 'toggleterm'
   local set_terminal_keymaps = function()
     local buf_map = require('core.utils').buf_map
-    -- buf_map(0, 't', '<C-[>', '<C-\\><C-n>')
+    buf_map(0, 't', '<C-]>', '<C-\\><C-n>')
     buf_map(0, 't', '<C-j>', '<C-\\><C-n><C-w>j')
     buf_map(0, 't', '<C-k>', '<C-\\><C-n><C-w>k')
     buf_map(0, 't', '<C-h>', '<C-\\><C-n><C-w>h')
