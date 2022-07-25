@@ -65,3 +65,6 @@ shell:
   program: 'C:/Windows/System32/wsl.exe ~'
   args:
     - 'tmux attach || tmux'
+
+key_bindings:
+  - { key: Space, mods: Control, chars: "\x00" }
