@@ -11,4 +11,5 @@ return {
   'tailwindcss',
   'tsserver',
   'yamlls',
+  'dockerls',
 }
