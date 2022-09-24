@@ -18,15 +18,28 @@ null_ls.setup {
         'None',
       },
     },
-    code_actions.eslint_d,
-    diagnostics.eslint_d,
-    formatting.eslint_d.with {
-      -- Only register eslint_d if prettierd is not running as a formatter
-      condition = function()
-        return #null_ls_sources.get { name = 'prettierd' } == 0
+    code_actions.eslint_d.with {
+      condition = function(utils)
+        return utils.root_has_file(diagnostics.eslint.filetypes)
       end,
     },
-    formatting.prettierd,
+    diagnostics.eslint_d.with {
+      condition = function(utils)
+        return utils.root_has_file(diagnostics.eslint.filetypes)
+      end,
+    },
+    formatting.prettierd.with {
+      condition = function(utils)
+        return utils.root_has_file(formatting.prettier.filetypes)
+      end,
+    },
+    formatting.eslint_d.with {
+      -- Only register eslint_d if prettierd is not running as a formatter
+      condition = function(utils)
+        return utils.root_has_file(diagnostics.eslint.filetypes)
+          and #null_ls_sources.get { name = 'prettierd', method = null_ls.methods.FORMATTING } == 0
+      end,
+    },
     formatting.black.with {
       args = {
         '--stdin-filename',
