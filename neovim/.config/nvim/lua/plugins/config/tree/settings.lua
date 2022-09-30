@@ -11,7 +11,12 @@ tree.setup {
   open_on_setup = false,
   open_on_setup_file = false,
   open_on_tab = false,
+  focus_empty_on_setup = false,
+  ignore_buf_on_tab_change = {},
   sort_by = 'name',
+  root_dirs = {},
+  prefer_startup_root = false,
+  sync_root_with_cwd = false,
   update_cwd = false,
   reload_on_bufenter = false,
   respect_buf_cwd = false,
@@ -19,7 +24,6 @@ tree.setup {
     adaptive_size = false,
     centralize_selection = false,
     width = 30,
-    height = 30,
     hide_root_folder = false,
     side = 'left',
     preserve_window_proportions = false,
@@ -42,12 +46,15 @@ tree.setup {
     full_name = false,
     highlight_opened_files = 'none',
     root_folder_modifier = ':~',
+    indent_width = 2,
     indent_markers = {
       enable = true,
+      inline_arrows = false,
       icons = {
         corner = '└',
         edge = '│',
         item = '│',
+        bottom = '─',
         none = ' ',
       },
     },
@@ -87,6 +94,7 @@ tree.setup {
       },
     },
     special_files = { 'Cargo.toml', 'Makefile', 'README.md', 'readme.md' },
+    symlink_destination = true,
   },
   hijack_directories = {
     enable = true,
@@ -107,6 +115,7 @@ tree.setup {
   diagnostics = {
     enable = false,
     show_on_dirs = false,
+    debounce_delay = 50,
     icons = {
       hint = '',
       info = '',
@@ -126,6 +135,7 @@ tree.setup {
   git = {
     enable = true,
     ignore = true,
+    show_on_dirs = true,
     timeout = 400,
   },
   actions = {
@@ -137,6 +147,7 @@ tree.setup {
     },
     expand_all = {
       max_folder_discovery = 300,
+      exclude = {},
     },
     open_file = {
       quit_on_open = false,
