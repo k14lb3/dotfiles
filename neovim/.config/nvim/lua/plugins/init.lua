@@ -14,7 +14,8 @@ packer.startup(function()
 
   -- LSP
   use { 'neovim/nvim-lspconfig', ext = 'lsp' }
-  use { 'williamboman/nvim-lsp-installer' }
+  use { 'williamboman/mason.nvim' }
+  use { 'williamboman/mason-lspconfig.nvim' }
   use { 'jose-elias-alvarez/null-ls.nvim' }
   use { 'ray-x/lsp_signature.nvim' }
 

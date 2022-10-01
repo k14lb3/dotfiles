@@ -13,7 +13,7 @@ aucmd('BufWritePost', {
 })
 
 aucmd('FileType', {
-  pattern = { 'help', 'man', 'lsp-installer', 'qf', 'lspinfo', 'null-ls-info', 'notify' },
+  pattern = { 'help', 'man', 'qf', 'lspinfo', 'null-ls-info', 'notify' },
   command = 'nnoremap <buffer> <silent> q :q<CR>',
 })
 
