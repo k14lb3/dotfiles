@@ -2,3 +2,4 @@
 **/packer_compiled.lua
 **/.zcompdump*
 zsh/**/plugins
+alacritty/**/alacritty.yml
