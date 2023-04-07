@@ -21,8 +21,8 @@ mason_lspconfig.setup_handlers {
       },
     }
 
-    if server == 'sumneko_lua' then
-      local _opts = require(servers_path .. '.sumneko_lua')
+    if server == 'lua_ls' then
+      local _opts = require(servers_path .. '.lua_ls')
       opts = vim.tbl_deep_extend('force', _opts, opts)
     end
 

@@ -7,7 +7,7 @@ return {
   'jsonls',
   'prosemd_lsp',
   'pyright',
-  'sumneko_lua',
+  'lua_ls',
   'tailwindcss',
   'tsserver',
   'yamlls',
