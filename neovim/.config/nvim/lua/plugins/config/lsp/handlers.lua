@@ -110,6 +110,15 @@ M.on_attach = function(client, bufnr)
   if client.server_capabilities.documentHighlightProvider then
     lsp_highlighting(bufnr)
   end
+
+  if client.name == 'tsserver' then
+    vim.api.nvim_create_user_command('OrganizeImports', function()
+      vim.lsp.buf.execute_command {
+        command = '_typescript.organizeImports',
+        arguments = { vim.api.nvim_buf_get_name(0) },
+      }
+    end, { desc = 'Organize imports' })
+  end
 end
 
 M.capabilities = cmp_nvim_lsp.default_capabilities()
