@@ -32,6 +32,17 @@ local prettier_config_file_formats = {
 
 null_ls.setup {
   sources = {
+    code_actions.eslint_d.with {
+      condition = function(utils)
+        return utils.root_has_file(eslint_config_file_formats)
+      end,
+    },
+    diagnostics.flake8,
+    diagnostics.eslint_d.with {
+      condition = function(utils)
+        return utils.root_has_file(eslint_config_file_formats)
+      end,
+    },
     formatting.stylua.with {
       extra_args = {
         '--indent-width',
@@ -43,16 +54,6 @@ null_ls.setup {
         '--call-parentheses',
         'None',
       },
-    },
-    code_actions.eslint_d.with {
-      condition = function(utils)
-        return utils.root_has_file(eslint_config_file_formats)
-      end,
-    },
-    diagnostics.eslint_d.with {
-      condition = function(utils)
-        return utils.root_has_file(eslint_config_file_formats)
-      end,
     },
     formatting.prettierd.with {
       condition = function(utils)
@@ -76,6 +77,5 @@ null_ls.setup {
         '--skip-string-normalization',
       },
     },
-    diagnostics.flake8,
   },
 }
