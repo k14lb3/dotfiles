@@ -38,6 +38,6 @@ local config = function()
 end
 
 return {
-  tag = 'v1.*',
+  tag = '*',
   config = config,
 }
