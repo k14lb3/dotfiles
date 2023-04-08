@@ -43,6 +43,7 @@ null_ls.setup {
         return utils.root_has_file(eslint_config_file_formats)
       end,
     },
+    formatting.beautysh,
     formatting.stylua.with {
       extra_args = {
         '--indent-width',
