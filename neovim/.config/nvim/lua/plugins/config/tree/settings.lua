@@ -7,11 +7,7 @@ tree.setup {
   hijack_cursor = true,
   hijack_netrw = true,
   hijack_unnamed_buffer_when_opening = false,
-  ignore_buffer_on_setup = false,
-  open_on_setup = false,
-  open_on_setup_file = false,
   open_on_tab = false,
-  focus_empty_on_setup = false,
   ignore_buf_on_tab_change = {},
   sort_by = 'name',
   root_dirs = {},
@@ -104,9 +100,6 @@ tree.setup {
     enable = true,
     update_cwd = true,
     ignore_list = {},
-  },
-  ignore_ft_on_setup = {
-    'alpha',
   },
   system_open = {
     cmd = '',
