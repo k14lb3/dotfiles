@@ -16,16 +16,29 @@ local config = function()
     hide_inactive_statusline = true,
     lualine_bold = true,
     on_highlights = function(hl, c)
+      -- Core
       hl.CmpPmenu = {
         bg = 'none',
         fg = c.border_highlight,
       }
-
+      hl.FloatBorder = {
+        fg = c.blue,
+      }
+      hl.NormalFloat = {
+        fg = c.blue,
+      }
       hl.PmenuThumb = {
         bg = c.blue,
       }
-
+      -- Alpha
       hl.AlphaHeaderLabel = {
+        fg = c.blue,
+      }
+      -- Telescope
+      hl.TelescopeBorder = {
+        fg = c.blue,
+      }
+      hl.TelescopePromptBorder = {
         fg = c.blue,
       }
     end,

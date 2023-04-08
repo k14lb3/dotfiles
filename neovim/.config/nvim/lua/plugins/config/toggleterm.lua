@@ -1,5 +1,6 @@
 local config = function()
   local toggleterm = require 'toggleterm'
+  local tokyonight_colors = require('tokyonight.colors').setup()
   local set_terminal_keymaps = function()
     local buf_map = require('core.utils').buf_map
     buf_map(0, 't', '<C-]>', '<C-\\><C-n>')
@@ -25,10 +26,10 @@ local config = function()
     },
     highlights = {
       NormalFloat = {
-        link = 'NormalFloat',
+        link = 'Normal',
       },
       FloatBorder = {
-        link = 'FloatBorder',
+        guifg = tokyonight_colors.blue,
       },
     },
   }
