@@ -1,0 +1,13 @@
+# ┏━━━━━━━━━━━┓
+# ┃ gitconfig ┃
+# ┗━━━━━━━━━━━┛
+
+[user]
+  name = k14lb3
+  email = k14lb3@gmail.com
+
+[core]
+  editor = vim
+
+[include]
+  path = ~/.config/local/.gitconfig
