@@ -1,0 +1,81 @@
+# ┏━━━━━━━━┓
+# ┃ colors ┃
+# ┗━━━━━━━━┛
+
+# https://github.com/edeneast/nightfox.nvim/raw/main/extra/carbonfox/alacritty.toml
+
+[colors.primary]
+background = '#161616'
+foreground = '#F2F4F8'
+dim_foreground = '#B6B8BB'
+bright_foreground = '#F9FBFF'
+
+[colors.cursor]
+text = '#F2F4F8'
+cursor = '#B6B8BB'
+
+[colors.vi_mode_cursor]
+text = '#F2F4F8'
+cursor = '#33B1FF'
+
+[colors.search.matches]
+foreground = '#F2F4F8'
+background = '#525253'
+
+[colors.search.focused_match]
+foreground = '#F2F4F8'
+background = '#3DDBD9'
+
+[colors.footer_bar]
+foreground = '#F2F4F8'
+background = '#353535'
+
+[colors.hints.start]
+foreground = '#F2F4F8'
+background = '#3DDBD9'
+
+[colors.hints.end]
+foreground = '#F2F4F8'
+background = '#353535'
+
+[colors.selection]
+text = '#F2F4F8'
+background = '#2A2A2A'
+
+[colors.normal]
+black = '#282828'
+red = '#EE5396'
+green = '#25BE6A'
+yellow = '#08BDBA'
+blue = '#78A9FF'
+magenta = '#BE95FF'
+cyan = '#33B1FF'
+white = '#DFDFE0'
+
+[colors.bright]
+black = '#484848'
+red = '#F16DA6'
+green = '#46C880'
+yellow = '#2DC7C4'
+blue = '#8CB6FF'
+magenta = '#C8A5FF'
+cyan = '#52BDFF'
+white = '#E4E4E5'
+
+[colors.dim]
+black = '#222222'
+red = '#CA4780'
+green = '#1FA25A'
+yellow = '#07A19E'
+blue = '#6690D9'
+magenta = '#A27FD9'
+cyan = '#2B96D9'
+white = '#BEBEBE'
+
+[[colors.indexed_colors]]
+index = 16
+color = '#3DDBD9'
+
+[[colors.indexed_colors]]
+index = 17
+color = '#FF7EB6'

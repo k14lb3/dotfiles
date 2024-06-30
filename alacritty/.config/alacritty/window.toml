@@ -1,0 +1,13 @@
+# ┏━━━━━━━━┓
+# ┃ window ┃
+# ┗━━━━━━━━┛
+
+[window]
+decorations = 'None'
+dynamic_padding = true
+opacity = 0.9
+blur = true
+
+[window.padding]
+x = 4
+y = 4

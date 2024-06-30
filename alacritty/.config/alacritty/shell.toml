@@ -1,0 +1,6 @@
+# ┏━━━━━━━┓
+# ┃ shell ┃
+# ┗━━━━━━━┛
+
+[shell]
+program = '/bin/zsh'
