@@ -1,0 +1,15 @@
+# ════════════════════════════════════════════════════
+# ░█▀▀█ ░█    ░█▀▀█ ░█▀▀█ ░█▀▀█ ▀█▀ ▀▀█▀▀ ▀▀█▀▀ ░█  ░█
+# ░█▄▄█ ░█    ░█▄▄█ ░█    ░█▄▄▀ ░█   ░█    ░█   ░█▄▄▄█
+# ░█ ░█ ░█▄▄█ ░█ ░█ ░█▄▄█ ░█ ░█ ▄█▄  ░█    ░█     ░█
+# ════════════════════════════════════════════════════
+
+import = [
+  '~/.config/alacritty/env.toml',
+  '~/.config/alacritty/shell.toml',
+  '~/.config/alacritty/window.toml',
+  '~/.config/alacritty/scrolling.toml',
+  '~/.config/alacritty/mouse.toml',
+  '~/.config/alacritty/colors.toml',
+  '~/.config/alacritty/font.toml',
+]
