@@ -1,0 +1,19 @@
+# ┏━━━━━━━━┓
+# ┃ colors ┃
+# ┗━━━━━━━━┛
+
+# https://github.com/slugbyte/lackluster.nvim/blob/main/extra/alacritty/alacritty.toml
+
+[colors.primary]
+background = '#0A0A0A'
+foreground = '#DEEEED'
+
+[colors.normal]
+black = '#080808'
+red = '#D70000'
+green = '#789978'
+yellow = '#FFAA88'
+blue = '#7788AA'
+magenta = '#D7007D'
+cyan = '#708090'
+white = '#DEEEED'

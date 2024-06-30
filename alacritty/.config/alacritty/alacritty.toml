@@ -1,0 +1,15 @@
+# ┏━━━━━━━━━━━┓
+# ┃ alacritty ┃
+# ┗━━━━━━━━━━━┛
+
+[general]
+import = [
+  '~/.config/alacritty/env.toml',
+  '~/.config/alacritty/terminal.toml',
+  '~/.config/alacritty/window.toml',
+  '~/.config/alacritty/scrolling.toml',
+  '~/.config/alacritty/mouse.toml',
+  '~/.config/alacritty/colors.toml',
+  '~/.config/alacritty/font.toml',
+  '~/.config/local/alacritty.toml',
+]
