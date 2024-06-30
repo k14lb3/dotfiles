@@ -1,0 +1,6 @@
+# ┏━━━━━━━━━━━━┓
+# ┃ scrollling ┃
+# ┗━━━━━━━━━━━━┛
+
+[scrolling]
+history = 10000
