@@ -1,0 +1,88 @@
+# ┏━━━━━━━━━━━━┓
+# ┃ lackluster ┃
+# ┗━━━━━━━━━━━━┛
+
+# ━ General ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+// Main
+theme[main_bg]="#0A0A0A"
+theme[main_fg]="#DEEEED"
+
+// Title
+theme[title]="#DEEEED"
+
+// Highlight
+theme[hi_fg]="#7788AA"
+
+// Inactive
+theme[inactive_fg]="#3A3A3A"
+
+// Divider line
+theme[div_line]="#3A3A3A"
+
+# ━ CPU ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+// Box
+theme[cpu_box]="#444444"
+
+// Graph
+theme[cpu_start]="#789978"
+theme[cpu_mid]="#708090"
+theme[cpu_end]="#D70000"
+
+// Temperature
+theme[temp_start]="#789978"
+theme[temp_mid]="#708090"
+theme[temp_end]="#D70000"
+
+# ━ Memory/Disks ━━━━━━━━━━━━━━━━━━━━━━━━━
+
+// Box
+theme[mem_box]="#444444"
+
+// Free
+theme[free_start]="#789978"
+theme[free_mid]="#708090"
+theme[free_end]="#D70000"
+
+// Cached
+theme[cached_start]="#789978"
+theme[cached_mid]="#708090"
+theme[cached_end]="#D70000"
+
+// Available
+theme[available_start]="#789978"
+theme[available_mid]="#708090"
+theme[available_end]="#D70000"
+
+// Used
+theme[used_start]="#789978"
+theme[used_mid]="#708090"
+theme[used_end]="#D70000"
+
+# ━ Net ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+// Box
+theme[net_box]="#444444"
+
+// Download
+theme[download_start]="#789978"
+theme[download_mid]="#708090"
+theme[download_end]="#D70000"
+
+// Upload
+theme[upload_start]="#789978"
+theme[upload_mid]="#708090"
+theme[upload_end]="#D70000"
+
+# ━ Processes ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+// Box
+theme[proc_box]="#444444"
+
+// Selected
+theme[selected_bg]="#2A2A2A"
+theme[selected_fg]="#DEEEED"
+
+// Misc
+theme[proc_misc]="#789978"
