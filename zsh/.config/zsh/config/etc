@@ -1,0 +1,31 @@
+#!/usr/bin/env zsh
+
+# ═════════════════
+# ░█▀▀▀ ▀▀█▀▀ ░█▀▀█
+# ░█▀▀▀  ░█   ░█
+# ░█▄▄▄  ░█   ░█▄▄█
+# ═════════════════
+
+__zsh::config::etc::powerlevel10k() {
+  source "${XDG_CACHE_HOME}/p10k-instant-prompt-${(%):-%n}.zsh" &>/dev/null
+  source "${ZDOTDIR}/.p10k.zsh" &>/dev/null
+}
+
+__zsh::config::etc::zoxide() {
+  eval "$(zoxide init --cmd cd zsh)" &>/dev/null
+}
+
+__zsh::config::etc::thefuck() {
+  eval "$(thefuck --alias)" &>/dev/null
+}
+
+__zsh::config::etc::nvm() {
+  source "/usr/share/nvm/init-nvm.sh" &>/dev/null
+}
+
+() {
+  __zsh::config::etc::powerlevel10k
+  __zsh::config::etc::zoxide
+  __zsh::config::etc::thefuck
+  __zsh::config::etc::nvm
+}

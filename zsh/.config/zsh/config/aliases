@@ -1,0 +1,22 @@
+#!/usr/bin/env zsh
+
+# ═════════════════════════════════════════
+# ░█▀▀█ ░█    ▀█▀ ░█▀▀█ ░█▀▀▀█ ░█▀▀▀ ░█▀▀▀█
+# ░█▄▄█ ░█    ░█  ░█▄▄█  ▀▀▀▄▄ ░█▀▀▀  ▀▀▀▄▄
+# ░█ ░█ ░█▄▄█ ▄█▄ ░█ ░█ ░█▄▄▄█ ░█▄▄▄ ░█▄▄▄█
+# ═════════════════════════════════════════
+
+__zsh::config::aliases::general() {
+  alias mkdir="mkdir --parents"
+}
+
+__zsh::config::aliases::etc() {
+  alias vim="nvim"
+  alias rm="trash"
+  alias ls="lsd"
+}
+
+() {
+  __zsh::config::aliases::general
+  __zsh::config::aliases::etc
+}
