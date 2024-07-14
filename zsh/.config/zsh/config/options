@@ -1,0 +1,25 @@
+#!/usr/bin/env zsh
+
+# ┏━━━━━━━━━┓
+# ┃ options ┃
+# ┗━━━━━━━━━┛
+
+__zsh::config::options::history() {
+  setopt EXTENDED_HISTORY
+  setopt HIST_EXPIRE_DUPS_FIRST
+  setopt HIST_FIND_NO_DUPS
+  setopt HIST_IGNORE_ALL_DUPS
+  setopt HIST_IGNORE_DUPS
+  setopt HIST_REDUCE_BLANKS
+  setopt HIST_SAVE_NO_DUPS
+}
+
+__zsh::config::options::general() {
+  setopt AUTO_CD
+  setopt EXTENDED_GLOB
+}
+
+() {
+  __zsh::config::options::general
+  __zsh::config::options::history
+}
