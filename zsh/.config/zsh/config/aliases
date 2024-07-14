@@ -1,0 +1,20 @@
+#!/usr/bin/env zsh
+
+# ┏━━━━━━━━━┓
+# ┃ aliases ┃
+# ┗━━━━━━━━━┛
+
+__zsh::config::aliases::misc() {
+  alias vim="nvim"
+  alias rm="trash"
+  alias ls="lsd"
+}
+
+__zsh::config::aliases::general() {
+  alias mkdir="mkdir --parents"
+}
+
+() {
+  __zsh::config::aliases::general
+  __zsh::config::aliases::misc
+}

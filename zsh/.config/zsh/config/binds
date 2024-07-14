@@ -1,0 +1,27 @@
+#!/usr/bin/env zsh
+
+# ┏━━━━━━━┓
+# ┃ binds ┃
+# ┗━━━━━━━┛
+
+__zsh::config::binds::autocomplete() {
+  bindkey -M menuselect "h" vi-backward-char
+  bindkey -M menuselect "k" vi-up-line-or-history
+  bindkey -M menuselect "l" vi-forward-char
+  bindkey -M menuselect "j" vi-down-line-or-history
+  bindkey -M menuselect "^[" undo
+}
+
+__zsh::config::binds::autosuggestions() {
+  bindkey "^ " forward-word
+}
+
+__zsh::config::binds::vi() {
+  bindkey -v
+}
+
+() {
+  __zsh::config::binds::vi
+  __zsh::config::binds::autosuggestions
+  __zsh::config::binds::autocomplete
+}

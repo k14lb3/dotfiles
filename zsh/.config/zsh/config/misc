@@ -1,0 +1,34 @@
+#!/usr/bin/env zsh
+
+# ┏━━━━━━┓
+# ┃ misc ┃
+# ┗━━━━━━┛
+
+__zsh::config::misc::deno() {
+  source "${HOME}/.deno/env" &>/dev/null
+}
+
+__zsh::config::misc::nvm() {
+  source "/usr/share/nvm/init-nvm.sh" &>/dev/null
+}
+
+__zsh::config::misc::thefuck() {
+  eval "$(thefuck --alias)" &>/dev/null
+}
+
+__zsh::config::misc::zoxide() {
+  eval "$(zoxide init --cmd cd zsh)" &>/dev/null
+}
+
+__zsh::config::misc::powerlevel10k() {
+  source "${XDG_CACHE_HOME}/p10k-instant-prompt-${(%):-%n}.zsh" &>/dev/null
+  source "${ZDOTDIR}/.p10k.zsh" &>/dev/null
+}
+
+() {
+  __zsh::config::misc::powerlevel10k
+  __zsh::config::misc::zoxide
+  __zsh::config::misc::thefuck
+  __zsh::config::misc::nvm
+  __zsh::config::misc::deno
+}

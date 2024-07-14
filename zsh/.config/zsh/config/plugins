@@ -1,0 +1,21 @@
+#!/usr/bin/env zsh
+
+# ┏━━━━━━━━━┓
+# ┃ plugins ┃
+# ┗━━━━━━━━━┛
+
+() {
+  source "${ZPLUG_HOME}/init.zsh"
+
+  zplug "romkatv/powerlevel10k", as:theme, depth:1
+  zplug "marlonrichert/zsh-autocomplete"
+  zplug "zsh-users/zsh-completions"
+  zplug "zsh-users/zsh-syntax-highlighting", defer:2
+  zplug "zsh-users/zsh-autosuggestions", defer:3
+
+  if [[ "$(zplug check --verbose)" ]]; then
+    zplug install
+  fi
+
+  zplug load
+}

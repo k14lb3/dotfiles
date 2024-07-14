@@ -1,0 +1,46 @@
+#!/usr/bin/env zsh
+
+# ┏━━━━━━━━━┓
+# ┃ exports ┃
+# ┗━━━━━━━━━┛
+
+__zsh::config::exports::misc() {
+  export LANG="en_US.UTF-8"
+  export TERMINAL="alacritty"
+  export BROWSER="zen-browser"
+  export ZPLUG_HOME="${HOME}/.zplug"
+}
+
+__zsh::config::exports::zsh() {
+  export KEYTIMEOUT=1
+}
+
+__zsh::config::exports::editor() {
+  export EDITOR="nvim"
+  export VISUAL="nvim"
+}
+
+__zsh::config::exports::history() {
+  export HISTSIZE=100000
+  export SAVEHIST=100000
+  export HISTFILE="${HOME}/.zsh_history"
+}
+
+__zsh::config::exports::path() {
+  export PATH="${HOME}/.local/bin:${PATH}"
+}
+
+__zsh::config::exports::xdg() {
+  export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-${HOME}/.config}"
+  export XDG_CACHE_HOME="${XDG_CACHE_HOME:-${HOME}/.cache}"
+  export XDG_DATA_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}"
+}
+
+() {
+  __zsh::config::exports::xdg
+  __zsh::config::exports::path
+  __zsh::config::exports::history
+  __zsh::config::exports::editor
+  __zsh::config::exports::zsh
+  __zsh::config::exports::misc
+}
