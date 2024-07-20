@@ -1,0 +1,77 @@
+#!/usr/bin/env bash
+
+# ┏━━━━━━━━━━━━━━━━━━┓
+# ┃ resource_monitor ┃
+# ┗━━━━━━━━━━━━━━━━━━┛
+
+source "lib"
+
+readonly RESOURCE_MONITOR_COMMAND="${TERMINAL} -e btop"
+
+print_usage() {
+  cat <<END
+Usage:
+  ${SCRIPT_NAME} [option]
+
+  Options:
+    -h, --help  Show usage.
+END
+}
+
+focus_resource_monitor() {
+  if [[ "$#" -ne 0 ]]; then
+    lib::print_invalid_argument_error "$1"
+    return 1
+  fi
+
+  local -r RESOURCE_MONITOR_COMMAND_PID="$(pgrep -f "${RESOURCE_MONITOR_COMMAND}" | head -n 1)"
+
+  lib::execute \
+    "hyprctl dispatch focuswindow pid:${RESOURCE_MONITOR_COMMAND_PID}" \
+    "Focusing on the resource monitor."
+}
+
+open_resource_monitor() {
+  if [[ "$#" -ne 0 ]]; then
+    lib::print_invalid_argument_error "$1"
+    return 1
+  fi
+
+  lib::execute \
+    "${RESOURCE_MONITOR_COMMAND}" \
+    "Resource monitor opened."
+}
+
+handle_option() {
+  case "$1" in
+    -h | --help)
+      if [[ "$#" -gt 1 ]]; then
+        lib::print_invalid_argument_error "$2"
+        return 1
+      fi
+
+      print_usage
+      return
+      ;;
+    *)
+      lib::print_error "Invalid \`$1\` option."
+      return 1
+      ;;
+  esac
+}
+
+main() {
+  if lib::is_option "$1"; then
+    handle_option "$@"
+    exit
+  fi
+
+  if ! lib::lock; then
+    focus_resource_monitor "$@"
+    exit
+  fi
+
+  open_resource_monitor "$@"
+}
+
+main "$@"

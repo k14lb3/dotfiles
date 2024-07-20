@@ -1,0 +1,117 @@
+#!/usr/bin/env bash
+
+# ┏━━━━━━━━━━━━┓
+# ┃ screenshot ┃
+# ┗━━━━━━━━━━━━┛
+
+source "lib"
+
+print_usage() {
+  cat <<END
+Usage:
+  ${SCRIPT_NAME} [option]
+  ${SCRIPT_NAME} <target>
+
+Targets:
+  screen      Screenshot the screen.
+  area        Screenshot a region in the screen or a window.
+  window      Screenshot the currently active window.
+ 
+Options:
+  -h, --help  Show usage.
+END
+}
+
+screenshot() {
+  local target="$1"
+
+  if [[ -z "${target}" ]]; then
+    lib::print_error "Missing target value."
+    return 1
+  fi
+
+  case "${target}" in
+    screen)
+      target="output"
+      ;;
+    area)
+      target="area"
+      ;;
+    window)
+      target="active"
+      ;;
+    *)
+      lib::print_error "Invalid \`${target}\` target."
+      return 1
+      ;;
+  esac
+
+  shift
+
+  if [[ "$#" -ne 0 ]]; then
+    lib::print_invalid_argument_error "$1"
+    return 1
+  fi
+
+  local -r FILENAME="$(date +'%y-%m-%d_%H%M%S.png')"
+  local -r SAVE_DIRECTORY_PATH="${XDG_PICTURES_DIR:-"${HOME}"/pictures/screenshots}"
+
+  lib::execute \
+    "grimblast --freeze copysave ${target} ${SAVE_DIRECTORY_PATH}/${FILENAME}" \
+    "Screenshot saved to \`${SAVE_DIRECTORY_PATH}\`."
+}
+
+handle_command() {
+  case "$1" in
+    screen)
+      screenshot output
+      return
+      ;;
+    area)
+      screenshot area
+      return
+      ;;
+    window)
+      screenshot active
+      return
+      ;;
+    *)
+      lib::print_error "Invalid \`$1\` command."
+      return 1
+      ;;
+  esac
+
+}
+
+handle_option() {
+  case "$1" in
+    -h | --help)
+      if [[ "$#" -gt 1 ]]; then
+        lib::print_invalid_argument_error "$2"
+        return 1
+      fi
+
+      print_usage
+      return
+      ;;
+    *)
+      lib::print_error "Invalid \`$1\` option."
+      return 1
+      ;;
+  esac
+}
+
+main() {
+  if lib::is_option "$1"; then
+    handle_option "$@"
+    exit
+  fi
+
+  if ! lib::lock; then
+    exit
+  fi
+
+  screenshot "$@"
+}
+
+main "$@"
