@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+# ════════════════════════════════════════════
+# ░█▀▀▀█ ░█▀▀▀ ░█▀▀▀█ ░█▀▀▀█ ▀█▀ ░█▀▀▀█ ░█▄ ░█
+#  ▀▀▀▄▄ ░█▀▀▀  ▀▀▀▄▄  ▀▀▀▄▄ ░█  ░█  ░█ ░█░█░█
+# ░█▄▄▄█ ░█▄▄▄ ░█▄▄▄█ ░█▄▄▄█ ▄█▄ ░█▄▄▄█ ░█  ▀█
+# ════════════════════════════════════════════
+
+source "$(tmux display-message -p "#{config_files}" | xargs dirname)/status/globals"
+
+main() {
+  local component=""
+  component+="#[fg=${COLORS[BACKGROUND]},bg=${COLORS[BLUE]},bold]"
+  component+=" "
+  component+="#{?client_prefix,${ICONS[PREFIX_ACTIVE]},${ICONS[PREFIX_INACTIVE]}} "
+  component+="#{session_name} "
+
+  echo "${component}"
+}
+
+main "$@"

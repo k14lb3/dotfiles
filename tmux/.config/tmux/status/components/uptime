@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+# ══════════════════════════════════
+# ░█ ░█ ░█▀▀█ ▀▀█▀▀ ▀█▀ ░█▀▄▀█ ░█▀▀▀
+# ░█ ░█ ░█▄▄█  ░█   ░█  ░█░█░█ ░█▀▀▀
+#  ▀▄▄▀ ░█     ░█   ▄█▄ ░█  ░█ ░█▄▄▄
+# ══════════════════════════════════
+
+source "$(tmux display-message -p "#{config_files}" | xargs dirname)/status/globals"
+
+main() {
+  local component=""
+  component+="#[fg=${COLORS[MAGENTA]}]"
+  component+="${ICONS[SHADE]} "
+  component+="${ICONS[TIMER]} "
+  component+="#[fg=${COLORS[FOREGROUND]}]"
+  component+="$(uptime | sed 's/^[^,]*up *//; s/, *[[:digit:]]* users.*//; s/ day.*, */d /; s/:/h /; s/ min//; s/$/m/') "
+
+  echo "${component}"
+}
+
+main "$@"
