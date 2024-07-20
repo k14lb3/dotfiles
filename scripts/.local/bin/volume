@@ -1,0 +1,243 @@
+#!/usr/bin/env bash
+
+# ══════════════════════════════════════
+# ░█  ░█ ░█▀▀▀█ ░█    ░█ ░█ ░█▀▄▀█ ░█▀▀▀
+#  ░█░█  ░█  ░█ ░█    ░█ ░█ ░█░█░█ ░█▀▀▀
+#   ▀▄▀  ░█▄▄▄█ ░█▄▄█  ▀▄▄▀ ░█  ░█ ░█▄▄▄
+# ══════════════════════════════════════
+
+source "globals"
+
+usage() {
+  cat <<END
+Usage:
+  ${SCRIPT_NAME} [option]
+  ${SCRIPT_NAME} <command> <args...>
+
+  Options:
+    -h, --help                 Show usage.
+
+  Commands:
+    increase <option> <value>  Increase volume.
+    decrease <option> <value>  Decrease volume.
+    mute <option>              Toggle mute.
+
+  Command options:
+    -o, --output               Output device.
+    -i, --input                Input device.
+
+  Command valid values:
+    Integer                    69
+    Percentage                 69%
+END
+}
+
+increase() {
+  if is_empty "$1"; then
+    print_error
+    return 1
+  fi
+
+  while true; do
+    case "$1" in
+    -i | --input)
+      local -r SRC="--default-source"
+      local -r VALUE="${2%\%}"
+
+      if is_empty "${VALUE}"; then
+        print_error "Missing volume value."
+        return 1
+      fi
+
+      if ! is_integer "${VALUE}"; then
+        print_error "Input a valid value."
+        return 1
+      fi
+      shift 2
+      break
+      ;;
+    -o | --output)
+      local -r SRC=""
+      local -r VALUE="${2%\%}"
+
+      if is_empty "${VALUE}"; then
+        print_error "Missing volume value."
+        return 1
+      fi
+
+      if ! is_integer "${VALUE}"; then
+        print_error "Input a valid value."
+        return 1
+      fi
+      shift 2
+      break
+      ;;
+    *)
+      if ! is_option "$1"; then
+        print_error "Invalid \`$1\` argument."
+        return 1
+      fi
+
+      print_error "Invalid \`$1\` option."
+      return 1
+      ;;
+    esac
+  done
+
+  if [[ "$#" -gt 0 ]]; then
+    print_error "Invalid \`$1\` argument."
+    return 1
+  fi
+
+  pamixer "${SRC}" -i "${VALUE}"
+}
+
+decrease() {
+  if is_empty "$1"; then
+    print_error
+    return 1
+  fi
+
+  while true; do
+    case "$1" in
+    -i | --input)
+      local -r SRC="--default-source"
+      local -r VALUE="${2%\%}"
+
+      if is_empty "${VALUE}"; then
+        print_error "Missing volume value."
+        return 1
+      fi
+
+      if ! is_integer "${value}"; then
+        print_error "Input a valid value."
+        return 1
+      fi
+
+      shift 2
+      break
+      ;;
+    -o | --output)
+      local -r SRC=""
+      local -r VALUE="${2%\%}"
+
+      if is_empty "${VALUE}"; then
+        print_error "Missing volume value."
+        return 1
+      fi
+
+      if ! is_integer "${VALUE}"; then
+        print_error "Input a valid value."
+        return 1
+      fi
+
+      shift 2
+      break
+      ;;
+    *)
+      if ! is_option "$1"; then
+        print_error "Invalid \`$1\` argument."
+        return 1
+      fi
+
+      print_error "Invalid \`$1\` option."
+      return 1
+      ;;
+    esac
+  done
+
+  if [[ "$#" -gt 0 ]]; then
+    print_error "Invalid \`$1\` argument."
+    return 1
+  fi
+
+  pamixer "${SRC}" -d "${VALUE}"
+}
+
+mute() {
+  if is_empty "$1"; then
+    print_error
+    return 1
+  fi
+
+  while true; do
+    case "$1" in
+    -i | --input)
+      local -r SRC="--default-source"
+      shift
+      break
+      ;;
+    -o | --output)
+      local -r SRC=""
+      shift
+      break
+      ;;
+    *)
+      if ! is_option "$1"; then
+        print_error "Invalid \`$1\` argument."
+        return 1
+      fi
+
+      print_error "Invalid \`$1\` option."
+      return 1
+      ;;
+    esac
+  done
+
+  if [[ "$#" -gt 0 ]]; then
+    print_error "Invalid \`$1\` argument."
+    return 1
+  fi
+
+  pamixer "${SRC}" -t
+}
+
+main() {
+  if [[ "$#" -eq 0 ]]; then
+    print_error
+    exit 1
+  fi
+
+  case "$1" in
+  increase)
+    shift
+    increase "$@"
+    exit "$?"
+    ;;
+  decrease)
+    shift
+    decrease "$@"
+    exit "$?"
+    ;;
+  mute)
+    shift
+    mute "$@"
+    exit "$?"
+    ;;
+  -* | --*) ;;
+  *)
+    print_error "Invalid \`$1\` command."
+    exit 1
+    ;;
+  esac
+
+  while true; do
+    case "$1" in
+    -h | --help)
+      if [[ "$#" != 1 ]]; then
+        print_error "Invalid \`$2\` argument."
+        exit 1
+      fi
+
+      usage
+      exit
+      ;;
+    *)
+      print_error "Invalid \`$1\` option."
+      exit 1
+      ;;
+    esac
+  done
+}
+
+main "$@"

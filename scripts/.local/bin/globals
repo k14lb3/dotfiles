@@ -1,0 +1,81 @@
+#!/usr/bin/env bash
+
+# ═══════════════════════════════════════════
+# ░█▀▀█ ░█    ░█▀▀▀█ ░█▀▀█ ░█▀▀█ ░█    ░█▀▀▀█
+# ░█ ▄▄ ░█    ░█  ░█ ░█▀▀▄ ░█▄▄█ ░█     ▀▀▀▄▄
+# ░█▄▄█ ░█▄▄█ ░█▄▄▄█ ░█▄▄█ ░█ ░█ ░█▄▄█ ░█▄▄▄█
+# ═══════════════════════════════════════════
+
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+  echo "🌎"
+  return
+fi
+
+readonly SCRIPT_NAME="$(basename $0 | sed 's/\.[^.]*$//')"
+readonly TEMP_DIRECTORY_PATH="/tmp"
+
+# █   █▀█ █▀▀ █▄▀
+# █▄▄ █▄█ █▄▄ █ █
+
+lock() {
+  local -r FUNCTION="$1"
+  local -r LOCKFILE_PATH="${TEMP_DIRECTORY_PATH}/${SCRIPT_NAME}.lock"
+
+  if [[ -e "${LOCKFILE_PATH}" ]]; then
+    if [[ -n "${FUNCTION}" ]]; then
+      eval "${FUNCTION}"
+    fi
+
+    return
+  fi
+
+  touch "${LOCKFILE_PATH}"
+  trap "rm -f ${LOCKFILE_PATH}" EXIT
+}
+
+# █▀▀ █ █ █▀▀ █▀▀ █▄▀ █▀▀ █▀█ █▀
+# █▄▄ █▀█ ██▄ █▄▄ █ █ ██▄ █▀▄ ▄█
+
+is_option() {
+  local -r ARGUMENT="$1"
+
+  [[ "${ARGUMENT}" == -* ]]
+}
+readonly -f is_option
+
+is_empty() {
+  local -r VALUE="$1"
+
+  [[ -z "${VALUE}" ]]
+}
+readonly -f is_empty
+
+is_percentage() {
+  local -r VALUE="$1"
+
+  [[ "${VALUE}" =~ ^[0-9]+(\.[0-9]+)?%$ ]]
+}
+readonly -f is_percentage
+
+is_integer() {
+  local -r VALUE="$1"
+
+  [[ "${VALUE}" =~ ^[0-9]+$ ]]
+}
+readonly -f is_integer
+
+# █▀█ █▀█ █ █▄ █ ▀█▀ █▀▀ █▀█ █▀
+# █▀▀ █▀▄ █ █ ▀█  █  ██▄ █▀▄ ▄█
+
+print_error() {
+  local -r ERROR="$1"
+
+  if is_empty "${ERROR}"; then
+    echo "${SCRIPT_NAME}: Try the \`-h\` or \`--help\` option for more information."
+    return 1
+  fi
+
+  echo "${SCRIPT_NAME}: ${ERROR}"
+  return 1
+}
+readonly -f print_error

@@ -1,0 +1,89 @@
+#!/usr/bin/env bash
+
+# ═══════════════════════════════════════════════════════════════
+# ░█▀▀▀█ ░█▀▀█ ░█▀▀█ ░█▀▀▀ ░█▀▀▀ ░█▄ ░█ ░█▀▀▀█ ░█ ░█ ░█▀▀▀█ ▀▀█▀▀
+#  ▀▀▀▄▄ ░█    ░█▄▄▀ ░█▀▀▀ ░█▀▀▀ ░█░█░█  ▀▀▀▄▄ ░█▀▀█ ░█  ░█  ░█
+# ░█▄▄▄█ ░█▄▄█ ░█ ░█ ░█▄▄▄ ░█▄▄▄ ░█  ▀█ ░█▄▄▄█ ░█ ░█ ░█▄▄▄█  ░█
+# ═══════════════════════════════════════════════════════════════
+
+source "globals"
+
+lock
+
+usage() {
+  cat <<END
+Usage:
+  ${SCRIPT_NAME} [option]
+  ${SCRIPT_NAME} <command>
+
+  Options:
+    -h, --help  Show usage.
+
+  Commands:
+    screen, s   Screenshot the screen.
+    area, a     Screenshot a region in the screen or a window.
+    window, w   Screenshot the currently active window.
+END
+}
+
+screenshot() {
+  local -r TARGET="$1"
+  local -r SCREENSHOT_FILENAME="$(date +'%y-%m-%d_%H%M%S.png')"
+  local -r SCREENSHOTS_DIRECTORY_PATH="${XDG_PICTURES_DIR:-"${HOME}/pictures/screenshots"}"
+
+  grimblast \
+    --freeze \
+    copysave \
+    "${TARGET}" \
+    "${SCREENSHOTS_DIRECTORY_PATH}/${SCREENSHOT_FILENAME}"
+}
+
+main() {
+  if [[ "$#" -eq 0 ]]; then
+    print_error
+    exit 1
+  fi
+
+  case "$1" in
+  s | screen)
+    shift
+    screenshot output
+    exit "$?"
+    ;;
+  a | area)
+    shift
+    screenshot area
+    exit "$?"
+    ;;
+  w | window)
+    shift
+    screenshot active
+    exit "$?"
+    ;;
+  -* | --*) ;;
+  *)
+    print_error "Invalid \`$1\` command."
+    exit 1
+    ;;
+  esac
+
+  while true; do
+    case "$1" in
+    -h | --help)
+      if [[ "$#" != 1 ]]; then
+        print_error "Invalid \`$2\` argument."
+        exit 1
+      fi
+
+      usage
+      exit
+      ;;
+    *)
+      print_error "Invalid \`$1\` option."
+      exit 1
+      ;;
+    esac
+  done
+}
+
+main "$@"

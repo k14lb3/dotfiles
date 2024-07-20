@@ -1,0 +1,141 @@
+#!/usr/bin/env bash
+
+# ════════════════════════════════════════════════════════════
+# ░█▀▀█ ░█▀▀█ ▀█▀ ░█▀▀█ ░█ ░█ ▀▀█▀▀ ░█▄ ░█ ░█▀▀▀ ░█▀▀▀█ ░█▀▀▀█
+# ░█▀▀▄ ░█▄▄▀ ░█  ░█ ▄▄ ░█▀▀█  ░█   ░█░█░█ ░█▀▀▀  ▀▀▀▄▄  ▀▀▀▄▄
+# ░█▄▄█ ░█ ░█ ▄█▄ ░█▄▄█ ░█ ░█  ░█   ░█  ▀█ ░█▄▄▄ ░█▄▄▄█ ░█▄▄▄█
+# ════════════════════════════════════════════════════════════
+
+source "globals"
+
+readonly CURRRENT_BRIGHTNESS_PERCENTAGE="$(brightnessctl -m | grep -o '[0-9]\+%')"
+
+usage() {
+  cat <<END
+Usage:
+  ${SCRIPT_NAME} [option]
+  ${SCRIPT_NAME} <command> <args...>
+
+  Options:
+    -h, --help           Show usage.
+
+  Commands:
+    increase, i <value>  Increase brightness.
+    decrease, d <value>  Decrease brightness.
+
+  Command valid values:
+    Integer              69
+    Percentage           69%
+END
+}
+
+increase() {
+  if is_empty "$1"; then
+    print_error
+    return 1
+  fi
+
+  if [[ "$#" -lt 1 ]]; then
+    print_error "Invalid \`$2\` argument."
+    return 1
+  fi
+
+  local -r VALUE="${1%\%}"
+
+  if is_empty "${VALUE}"; then
+    print_error "Option \`${COMMAND}\` is missing an argument."
+    return 1
+  fi
+
+  if ! is_integer "${VALUE}"; then
+    print_error "Input a valid value."
+    return 1
+  fi
+
+  if [[ "${CURRRENT_BRIGHTNESS_PERCENTAGE%\%}" -lt 10 ]]; then
+    brightnessctl set +1%
+    return
+  fi
+
+  brightnessctl set "+${VALUE}%"
+}
+
+decrease() {
+  if is_empty "$1"; then
+    print_error
+    return 1
+  fi
+
+  if [[ "$#" -lt 1 ]]; then
+    print_error "Invalid \`$2\` argument."
+    return 1
+  fi
+
+  local -r VALUE="${1%\%}"
+
+  if is_empty "${VALUE}"; then
+    print_error "Option \`${COMMAND}\` is missing an argument."
+    return 1
+  fi
+
+  if ! is_integer "${VALUE}"; then
+    print_error "Input a valid value."
+    return 1
+  fi
+
+  if [[ "${CURRRENT_BRIGHTNESS_PERCENTAGE%\%}" -eq "1" ]]; then
+    return
+  fi
+
+  if [[ "${CURRRENT_BRIGHTNESS_PERCENTAGE%\%}" -le 10 ]]; then
+    brightnessctl set 1%-
+    return
+  fi
+
+  brightnessctl set "${VALUE}%-"
+}
+
+main() {
+  if [[ "$#" -eq 0 ]]; then
+    print_error
+    exit 1
+  fi
+
+  case "$1" in
+  i | increase)
+    shift
+    increase "$@"
+    exit "$?"
+    ;;
+  d | decrease)
+    shift
+    decrease "$@"
+    exit "$?"
+    ;;
+  -* | --*) ;;
+  *)
+    print_error "Invalid \`$1\` command."
+    exit 1
+    ;;
+  esac
+
+  while true; do
+    case "$1" in
+    -h | --help)
+      if [[ "$#" != 1 ]]; then
+        print_error "Invalid \`$2\` argument."
+        exit 1
+      fi
+
+      usage
+      exit
+      ;;
+    *)
+      print_error "Invalid \`$1\` option."
+      exit 1
+      ;;
+    esac
+  done
+}
+
+main "$@"

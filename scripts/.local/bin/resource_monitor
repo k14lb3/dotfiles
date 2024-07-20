@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+
+# ═════════════════════════════════════════════════
+# ░█▀▀█ ░█▀▀▀ ░█▀▀▀█ ░█▀▀▀█ ░█ ░█ ░█▀▀█ ░█▀▀█ ░█▀▀▀
+# ░█▄▄▀ ░█▀▀▀  ▀▀▀▄▄ ░█  ░█ ░█ ░█ ░█▄▄▀ ░█    ░█▀▀▀
+# ░█ ░█ ░█▄▄▄ ░█▄▄▄█ ░█▄▄▄█  ▀▄▄▀ ░█ ░█ ░█▄▄█ ░█▄▄▄
+#
+# ░█▀▄▀█ ░█▀▀▀█ ░█▄ ░█ ▀█▀ ▀▀█▀▀ ░█▀▀▀█ ░█▀▀█
+# ░█░█░█ ░█  ░█ ░█░█░█ ░█   ░█   ░█  ░█ ░█▄▄▀
+# ░█  ░█ ░█▄▄▄█ ░█  ▀█ ▄█▄  ░█   ░█▄▄▄█ ░█ ░█
+# ═════════════════════════════════════════════════
+
+source "globals"
+
+focus_window() {
+  local -r PID="$1"
+
+  if [[ -z "${PID}" ]]; then
+    exit
+  fi
+
+  hyprctl dispatch focuswindow "pid:${PID}"
+}
+
+main() {
+  local -r COMMAND="alacritty -e btop"
+  local -r COMMAND_PID="$(pgrep -f "${COMMAND}" | head -n 1)"
+
+  lock "focus_window ${COMMAND_PID}"
+
+  eval "${COMMAND}"
+}
+
+main "$@"
