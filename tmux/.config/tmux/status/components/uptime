@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+# ┏━━━━━━━━┓
+# ┃ uptime ┃
+# ┗━━━━━━━━┛
+
+source "$(tmux display-message -p "#{config_files}" | xargs dirname)/status/globals"
+
+main() {
+  local component=""
+  component+="#[fg=${COLORS[MAGENTA]}]"
+  component+="${ICONS[SHADE]} "
+  component+="${ICONS[TIMER]} "
+  component+="#[fg=${COLORS[FOREGROUND]}]"
+  component+="$(uptime | awk -F, '{print $1,$2}' | sed 's/:/h /g;s/^.*up //; s/ *[0-9] user.*//;s/[0-9]$/&m/;s/[0-9] day.*/&d/;s/^[[:space:]]*//') "
+
+  echo "${component}"
+}
+
+main "$@"

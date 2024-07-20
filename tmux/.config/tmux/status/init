@@ -1,0 +1,58 @@
+#!/usr/bin/env bash
+
+# ┏━━━━━━┓
+# ┃ init ┃
+# ┗━━━━━━┛
+
+readonly TMUX_CONFIG_DIRECTORY_PATH="$(tmux display-message -p "#{config_files}" | xargs dirname)"
+source "${TMUX_CONFIG_DIRECTORY_PATH}/status/globals"
+
+pane() {
+  tmux set -g pane-border-style "fg=${COLORS[BACKGROUND_0]}"
+  tmux set -g pane-active-border-style "fg=${COLORS[BACKGROUND_0]}"
+}
+
+window() {
+  tmux set -g window-status-style "fg=${COLORS[FOREGROUND]},bg=${COLORS[BACKGROUND]}"
+  tmux set -g window-status-activity-style "fg=${COLORS[BACKGROUND]},bg=${COLORS[FOREGROUND]}"
+
+  tmux set -g window-status-format "${COMPONENTS[WINDOW]}"
+  tmux set -g window-status-current-format "${COMPONENTS[CURRENT_WINDOW]}"
+
+  tmux set -g window-status-separator ""
+}
+
+status() {
+  tmux set -g status-style "fg=${COLORS[FOREGROUND]},bg=${COLORS[BACKGROUND]}"
+
+  tmux set -g status-left-length 100
+  tmux set -g status-left-style NONE
+  tmux set -g status-left ""
+
+  for COMPONENT in SESSION; do
+    tmux set -ga status-left "${COMPONENTS[${COMPONENT}]}"
+  done
+
+  tmux set -g status-right-length 100
+  tmux set -g status-right-style NONE
+  tmux set -g status-right ""
+
+  for COMPONENT in GIT PATH UPTIME USER; do
+    tmux set -ga status-right "${COMPONENTS[${COMPONENT}]}"
+  done
+}
+
+misc() {
+  tmux set -g mode-style "fg=${COLORS[BACKGROUND]},bg=${COLORS[FOREGROUND]}"
+  tmux set -g message-style "fg=${COLORS[BACKGROUND]},bg=${COLORS[FOREGROUND]}"
+  tmux set -g message-command-style "fg=${COLORS[BACKGROUND]},bg=${COLORS[FOREGROUND]}"
+}
+
+main() {
+  pane
+  window
+  status
+  misc
+}
+
+main "$@"
