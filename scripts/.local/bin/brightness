@@ -1,0 +1,144 @@
+#!/usr/bin/env bash
+
+# ┏━━━━━━━━━━━━┓
+# ┃ brightness ┃
+# ┗━━━━━━━━━━━━┛
+
+source "lib"
+
+readonly CURRRENT_BRIGHTNESS_PERCENTAGE="$(brightnessctl -m | grep -o '[0-9]\+%')"
+
+print_usage() {
+  cat <<END
+Usage:
+  ${SCRIPT_NAME} [option]
+  ${SCRIPT_NAME} <command>
+
+Options:
+  -h, --help           Show usage.
+
+Commands:
+  increase <value>     Increase brightness.
+  decrease <value>     Decrease brightness.
+
+Command valid values:
+  Integer              69
+  Percentage           69%
+
+Notes:
+  - If the brightness percentage is below \`10%\` and
+  the \`increase\` command is used, the given value
+  will be ignored and \`1%\` will be used instead.
+  - If the brightness percentage is \`10%\` or below
+  and the \`decrease\` command is used, the given value
+  will be ignored and \`1%\` will be used instead.
+  - Brightness cannot be decreased to \`0%\`.
+END
+}
+
+decrease() {
+  if [[ -z "$1" ]]; then
+    lib::print_error "Missing brightness value."
+    return 1
+  fi
+
+  local -r VALUE="$([[ "${CURRRENT_BRIGHTNESS_PERCENTAGE%\%}" -gt 10 ]] && echo "${1%\%}" || echo "1")"
+  shift
+
+  if ! lib::is_integer "${VALUE}"; then
+    lib::print_error "Input a valid value."
+    return 1
+  fi
+
+  if [[ "${CURRRENT_BRIGHTNESS_PERCENTAGE%\%}" -eq 1 ]]; then
+    lib::print_error "Brightness cannot be decreased to 0%"
+    return 1
+  fi
+
+  if [[ "$#" -ne 0 ]]; then
+    lib::print_invalid_argument_error "$1"
+    return 1
+  fi
+
+  lib::execute \
+    "brightnessctl set ${VALUE}%-" \
+    "Brightness decreased by ${VALUE}%."
+}
+
+increase() {
+  if [[ -z "$1" ]]; then
+    lib::print_error "Missing brightness value."
+    return 1
+  fi
+
+  local -r VALUE="$([[ "${CURRRENT_BRIGHTNESS_PERCENTAGE%\%}" -ge 10 ]] && echo "${1%\%}" || echo "1")"
+  shift
+
+  if ! lib::is_integer "${VALUE}"; then
+    lib::print_error "Input a valid value."
+    return 1
+  fi
+
+  if [[ "$#" -ne 0 ]]; then
+    lib::print_invalid_argument_error "$1"
+    return 1
+  fi
+
+  lib::execute \
+    "brightnessctl set +${VALUE}%" \
+    "Brightness increased by ${VALUE}%."
+}
+
+handle_command() {
+  case "$1" in
+    increase)
+      shift
+      increase "$@"
+      return
+      ;;
+    decrease)
+      shift
+      decrease "$@"
+      return
+      ;;
+    *)
+      lib::print_error "Invalid \`$1\` command."
+      return 1
+      ;;
+  esac
+}
+
+handle_option() {
+  case "$1" in
+    -h | --help)
+      if [[ "$#" -gt 1 ]]; then
+        lib::print_invalid_argument_error "$2"
+        return 1
+      fi
+
+      print_usage
+      return
+      ;;
+    *)
+      lib::print_error "Invalid \`$1\` option."
+      return 1
+      ;;
+  esac
+}
+
+main() {
+  if lib::is_option "$1"; then
+    handle_option "$@"
+    exit
+  fi
+
+  if [[ -n "$1" ]]; then
+    handle_command "$@"
+    exit
+  fi
+
+  lib::print_error
+  exit 1
+}
+
+main "$@"
