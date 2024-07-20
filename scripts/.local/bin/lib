@@ -1,0 +1,214 @@
+#!/usr/bin/env bash
+
+# ┏━━━━━┓
+# ┃ lib ┃
+# ┗━━━━━┛
+
+if [[ "${BASH_SOURCE[0]}" == "$0" ]]; then
+  echo "📚"
+  exit
+fi
+
+# ━ Constants ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+readonly SCRIPT_NAME="$(basename "$0" | sed 's/\.[^.]*$//')"
+readonly TEMP_DIRECTORY_PATH="/tmp"
+
+# ━ Lock ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+##########################################
+# Creates a lockfile.
+# Globals:
+#   SCRIPT_NAME
+#   TEMP_DIRECTORY_PATH
+# Arguments:
+#   None
+# Returns:
+#   `0` if the lockfile was created
+#   successfully; otherwise, `1`.
+##########################################
+lib::lock() {
+  local -r LOCKFILE_PATH="${TEMP_DIRECTORY_PATH}/${SCRIPT_NAME}.lock"
+
+  if [[ -e "${LOCKFILE_PATH}" ]]; then
+    return 1
+  fi
+
+  touch "${LOCKFILE_PATH}"
+  trap "rm -f ${LOCKFILE_PATH}" EXIT
+}
+readonly -f lib::lock
+
+# ━ Checkers ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+##########################################
+# Checks if the given value is an option
+# (is prefixed with either `-` or `--`).
+# Arguments:
+#   Value to check.
+# Returns:
+#   `0` if the given value was an option;
+#   otherwise, `1`.
+##########################################
+lib::is_option() {
+  local -r VALUE="$1"
+
+  [[ "${VALUE}" =~ ^-{1,2} ]]
+}
+readonly -f lib::is_option
+
+##########################################
+# Checks if the given value is an integer.
+# Arguments:
+#   Value to check.
+# Returns:
+#   `0` if the given value was an integer;
+#   otherwise, `1`.
+##########################################
+lib::is_integer() {
+  local -r VALUE="$1"
+
+  [[ "${VALUE}" =~ ^[0-9]+$ ]]
+}
+readonly -f lib::is_integer
+
+# ━ Printers ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+##########################################
+# Prints a message.
+# Globals:
+#   SCRIPT_NAME
+# Arguments:
+#   Message to print.
+# Outputs:
+#   Writes the message to `stdout`.
+# Returns:
+#   `0`.
+##########################################
+lib::print() {
+  local -r MESSAGE="$1"
+
+  echo "${SCRIPT_NAME}: ${MESSAGE}"
+}
+readonly -f lib::print
+
+##########################################
+# Prints a predefined message.
+# Arguments:
+#   Optional custom error message to
+#   print.
+# Outputs:
+#   Writes the message to `stderr`.
+# Returns:
+#   `0`.
+##########################################
+lib::print_error() {
+  local -r ERROR_MESSAGE="${1:-Try the \`-h\` or \`--help\` option for more information.}"
+
+  lib::print "${ERROR_MESSAGE}" >&2
+}
+readonly -f lib::print_error
+
+##########################################
+# Prints a predefined message. If the
+# given value is an option (is prefixed
+# with either `-` or `--`), it will use
+# the term `option` instead of `argument`.
+# Arguments:
+#   Value to check.
+# Outputs:
+#   Writes the message to `stderr`.
+# Returns:
+#   `0`.
+##########################################
+lib::print_invalid_argument_error() {
+  local -r VALUE="$1"
+
+  if lib::is_option "${VALUE}"; then
+    lib::print_error "Invalid \`${VALUE}\` option."
+    return
+  fi
+
+  lib::print_error "Invalid \`${VALUE}\` argument."
+}
+readonly -f lib::print_invalid_argument_error
+
+# ━ Misc ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+##########################################
+# Inserts the given value at the given
+# position in one or more provided values.
+# Arguments:
+#   Position where to insert.
+#   Value to insert.
+#   ...Values to insert into.
+# Outputs:
+#   Writes the updated values to `stdout`
+#   and the error messages to `stderr`.
+# Returns:
+#   `0` if the value was inserted;
+#   otherwise, `1`.
+##########################################
+lib::insert_value() {
+  local -r POSITION="$1"
+  local -r VALUE="$2"
+
+  if [[ -z "${POSITION}" ]]; then
+    lib::print_error "Missing position."
+    return 1
+  fi
+
+  if ! lib::is_integer "${POSITION}"; then
+    lib::print_error "Position must be a valid integer."
+    return 1
+  fi
+
+  shift 2
+
+  case "${POSITION}" in
+    0)
+      echo "$@" "${VALUE}"
+      return
+      ;;
+    1)
+      echo "${VALUE}" "$@"
+      return
+      ;;
+    *)
+      echo "${@:1:$((POSITION - 1))}" "${VALUE}" "${@:${POSITION}:$#}"
+      ;;
+  esac
+}
+readonly -f lib::insert_value
+
+##########################################
+# Execute a command with predefined
+# success and error messages.
+# Arguments:
+#   Command to execute.
+#   Optional custom success message to
+#   print.
+#   Optional custom error message to
+#   print.
+# Outputs:
+#   Writes the success message to `stdout`
+#   and the error message to `stderr`.
+# Returns:
+#   `0` if the command was executed;
+#   otherwise, `1`.
+##########################################
+lib::execute() {
+  local -r COMMAND="$1"
+  local -r SUCCESS_MESSAGE="${2:-Command executed.}"
+  local -r ERROR_MESSAGE="${3:-Something went wrong.}"
+
+  eval "${COMMAND}" &>/dev/null
+
+  if [[ "$?" -ne 0 ]]; then
+    lib::print_error "${ERROR_MESSAGE}"
+    return 1
+  fi
+
+  lib::print "${SUCCESS_MESSAGE}"
+}
+readonly -f lib::execute

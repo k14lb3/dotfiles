@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+# ┏━━━━━━━━━━━━━━━━━━━━━━━━┓
+# ┃ renumber_tmux_sessions ┃
+# ┗━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+main() {
+  local -ra SESSIONS=($(tmux list-sessions -F "#{session_name}" | grep '^[0-9]\+$' | sort -n))
+
+  for INDEX in "${!SESSIONS[@]}"; do
+    if ! eval "tmux rename-session -t ${SESSIONS[${INDEX}]} $((INDEX + 1))" &>/dev/null; then
+      return 1
+    fi
+  done
+}
+
+main "$@"
