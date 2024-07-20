@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+# ┏━━━━━━━━┓
+# ┃ uptime ┃
+# ┗━━━━━━━━┛
+
+source "$(tmux display-message -p "#{config_files}" | xargs dirname)/status/globals"
+
+main() {
+  local component=""
+  component+="#[fg=${COLORS[MAGENTA]}]"
+  component+="${ICONS[SHADE]} "
+  component+="${ICONS[TIMER]} "
+  component+="#[fg=${COLORS[FOREGROUND]}]"
+  component+="$(uptime | awk -F'( |,|:)+' '{d=h=m=0; if ($7=="min") m=$6; else {if ($7~/^day/) {d=$6;h=$8;m=$9} else {h=$6;m=$7}}} {print d+0,"days,",h+0,"hours,",m+0,"minutes"}') "
+
+  echo "${component}"
+}
+
+main "$@"

@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+# ┏━━━━━━━━━━━━━━━━┓
+# ┃ current_window ┃
+# ┗━━━━━━━━━━━━━━━━┛
+
+source "$(tmux display-message -p "#{config_files}" | xargs dirname)/status/globals"
+
+main() {
+  local WINDOW_NUMBER="$1"
+  local PANE_NUMBER="$2"
+
+  local WINDOW_NUMBER_STYLE="$(convert_number_format "${WINDOW_NUMBER}" "${NUMBER_FORMATS[DIGITAL]}")"
+  local PANE_NUMBER_STYLE="$(convert_number_format "${PANE_NUMBER}" "${NUMBER_FORMATS[HOLLOW_SQUARE]}")"
+  local ZOOMED_PANE_NUMBER_STYLE="$(convert_number_format "${PANE_NUMBER}" "${NUMBER_FORMATS[HOLLOW_DOUBLE_SQUARE]}")"
+
+  local component=""
+  component+="#[fg=${COLORS[CYAN]},bg=${COLORS[GRAY_2]}]"
+  component+="${ICONS[SHADE]} "
+  component+="${ICONS[WINDOW]} "
+  component+="#[fg=${COLORS[FOREGROUND]}]"
+  component+="${WINDOW_NUMBER_STYLE} "
+  component+="#{window_name} "
+  component+="#{?window_zoomed_flag,${ZOOMED_PANE_NUMBER_STYLE},${PANE_NUMBER_STYLE}} "
+  component+="#{?window_last_flag,,${ICONS[DOT]} }"
+
+  echo "${component}"
+}
+
+main "$@"

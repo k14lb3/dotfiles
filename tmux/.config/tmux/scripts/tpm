@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+# ┏━━━━━┓
+# ┃ tpm ┃
+# ┗━━━━━┛
+
+main() {
+  local -r TPM_GITHUB_REPOSITORY_URL="https://github.com/tmux-plugins/tpm"
+  local -r TPM_DIRECTORY_PATH="${HOME}/.tmux/plugins/tpm"
+
+  if [[ ! -d "${TPM_DIRECTORY_PATH}" ]]; then
+    git clone "${TPM_GITHUB_REPOSITORY_URL}" "${TPM_DIRECTORY_PATH}"
+    source "${TPM_DIRECTORY_PATH}/bin/install_plugins"
+  fi
+
+  eval "tmux run ${TPM_DIRECTORY_PATH}/tpm" &>/dev/null
+}
+
+main "$@"

@@ -1,0 +1,90 @@
+#!/usr/bin/env bash
+
+# ┏━━━━━━━━━┓
+# ┃ globals ┃
+# ┗━━━━━━━━━┛
+
+readonly TMUX_CONFIG_DIRECTORY_PATH="$(tmux display-message -p "#{config_files}" | xargs dirname)"
+
+readonly -A COMPONENTS=(
+  ["SESSION"]="#(${TMUX_CONFIG_DIRECTORY_PATH}/status/components/session)"
+  ["CURRENT_WINDOW"]="#(${TMUX_CONFIG_DIRECTORY_PATH}/status/components/current_window #{window_index} #{pane_index})"
+  ["WINDOW"]="#(${TMUX_CONFIG_DIRECTORY_PATH}/status/components/window #{window_index} #{pane_index})"
+  ["GIT"]="#(${TMUX_CONFIG_DIRECTORY_PATH}/status/components/git)"
+  ["PATH"]="#(${TMUX_CONFIG_DIRECTORY_PATH}/status/components/path)"
+  ["UPTIME"]="#(${TMUX_CONFIG_DIRECTORY_PATH}/status/components/uptime)"
+  ["USER"]="#(${TMUX_CONFIG_DIRECTORY_PATH}/status/components/user)"
+)
+
+readonly -A NUMBER_FORMATS=(
+  ["DIGITAL"]="🯰🯱🯲🯳🯴🯵🯶🯷🯸🯹"
+  ["HOLLOW_SQUARE"]="󰎣󰎦󰎩󰎬󰎮󰎰󰎵󰎸󰎻󰎾"
+  ["HOLLOW_DOUBLE_SQUARE"]="󰎢󰎥󰎨󰎫󰎲󰎯󰎴󰎷󰎺󰎽"
+)
+
+readonly -A ICONS=(
+  ["PREFIX_INACTIVE"]="󰤂"
+  ["PREFIX_ACTIVE"]="󰪥"
+  ["WINDOW"]=""
+  ["DOT"]=""
+  ["RESTORE"]="󰁯"
+  ["BRANCH"]="󰘬"
+  ["BRANCH_DIRTY"]="󱓎"
+  ["ARROW_UP"]=""
+  ["ARROW_DOWN"]=""
+  ["ASTERISK"]=""
+  ["PLUS"]=""
+  ["MINUS"]=""
+  ["QUESTION_MARK"]="?"
+  ["FOLDER"]=""
+  ["TIMER"]="󰔟"
+  ["USER"]=""
+  ["SHADE"]="░"
+)
+
+declare -A COLORS=(
+  ["WHITE"]="#DEEEED"
+  ["RED"]="#D70000"
+  ["MAGENTA"]="#D7007D"
+  ["PURPLE"]='#875FA6'
+  ["GREEN"]="#789978"
+  ["YELLOW"]="#ABAB77"
+  ["ORANGE"]="#FFAA88"
+  ["BLUE"]="#7788AA"
+  ["CYAN"]="#708090"
+  ["BLACK"]="#000000"
+  ["GRAY_1"]="#080808"
+  ["GRAY_2"]="#191919"
+  ["GRAY_3"]="#2A2A2A"
+  ["GRAY_4"]="#444444"
+  ["GRAY_5"]="#555555"
+  ["GRAY_6"]="#7A7A7A"
+  ["GRAY_7"]="#AAAAAA"
+  ["GRAY_8"]="#CCCCCC"
+  ["GRAY_9"]="#DDDDDD"
+)
+
+COLORS["BACKGROUND"]="#0A0A0A"
+COLORS["FOREGROUND"]="${COLORS["WHITE"]}"
+
+readonly -A COLORS
+
+convert_number_format() {
+  local -r NUMBER="$1"
+  local -r FORMAT="$2"
+
+  if [[ -z "${FORMAT}" ]]; then
+    echo "${NUMBER}"
+    return
+  fi
+
+  if [[ ! "${#FORMAT}" -eq 10 ]]; then
+    echo "${NUMBER}"
+    return
+  fi
+
+  for ((index = 0; index < "${#NUMBER}"; index++)); do
+    echo -n "${FORMAT:"${NUMBER:${index}:1}":1}"
+  done
+}
+readonly -f convert_number_format

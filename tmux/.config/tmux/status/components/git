@@ -1,0 +1,91 @@
+#!/usr/bin/env bash
+
+# ┏━━━━━┓
+# ┃ git ┃
+# ┗━━━━━┛
+
+source "$(tmux display-message -p "#{config_files}" | xargs dirname)/status/globals"
+
+get_branch_icon() {
+  local IS_BRANCH_DIRTY="$(git status --porcelain)"
+  local icon=""
+
+  if [[ "${IS_BRANCH_DIRTY}" ]]; then
+    echo "${ICONS[BRANCH_DIRTY]}"
+    return
+  fi
+
+  echo "${ICONS[BRANCH]}"
+}
+
+main() {
+  cd "$(tmux display -p "#{pane_current_path}")"
+
+  local BRANCH="$(git branch --show-current 2>/dev/null)"
+
+  if [[ ${#BRANCH} -gt 20 ]]; then
+    BRANCH="${BRANCH:0:20}…"
+  fi
+
+  readonly BRANCH
+
+  local -r AHEAD_COMMIT_COUNT="$(git rev-list --left-only --count HEAD...@{upstream})"
+  local -r BEHIND_COMMIT_COUNT="$(git rev-list --right-only --count HEAD...@{upstream})"
+
+  local -ra DIFF_STATS=($(git diff --numstat 2>/dev/null | awk 'NF==3 {c+=1; i+=$1; d+=$2} END {printf("%d %d %d", c, i, d)}'))
+  local -r INSERTION_COUNT="${DIFF_STATS[1]}"
+  local -r CHANGED_FILES_COUNT="${DIFF_STATS[0]}"
+  local -r DELETION_COUNT="${DIFF_STATS[2]}"
+  local -r UNTRACKED_FILES_COUNT="$(git ls-files --others --exclude-standard | wc -l)"
+
+  local component=""
+  component+="#[fg=${COLORS[PURPLE]}]"
+  component+="${ICONS[SHADE]} "
+  component+="$(get_branch_icon) "
+  component+="#[fg=${COLORS[FOREGROUND]}]"
+  component+="${BRANCH} "
+
+  if [[ ${AHEAD_COMMIT_COUNT} -gt 0 ]]; then
+    component+="#[fg=${COLORS[YELLOW]}]"
+    component+="${ICONS[ARROW_UP]} "
+    component+="${AHEAD_COMMIT_COUNT} "
+  fi
+
+  if [[ ${BEHIND_COMMIT_COUNT} -gt 0 ]]; then
+    component+="#[fg=${COLORS[MAGENTA]}]"
+    component+="${ICONS[ARROW_DOWN]} "
+    component+="${BEHIND_COMMIT_COUNT} "
+  fi
+
+  if [[ "${INSERTION_COUNT}" -gt 0 ]]; then
+    component+="#[fg=${COLORS[GREEN]}]"
+    component+="${ICONS[PLUS]} "
+    component+="${INSERTION_COUNT} "
+  fi
+
+  if [[ "${CHANGED_FILES_COUNT}" -gt 0 ]]; then
+    component+="#[fg=${COLORS[YELLOW]}]"
+    component+="${ICONS[ASTERISK]} "
+    component+="${CHANGED_FILES_COUNT} "
+  fi
+
+  if [[ "${DELETION_COUNT}" -gt 0 ]]; then
+    component+="#[fg=${COLORS[RED]}]"
+    component+="${ICONS[MINUS]} "
+    component+="${DELETION_COUNT} "
+  fi
+
+  if [[ "${UNTRACKED_FILES_COUNT}" -gt 0 ]]; then
+    component+="#[fg=${COLORS[GRAY_6]}]"
+    component+="${ICONS[QUESTION_MARK]} "
+    component+="${UNTRACKED_FILES_COUNT} "
+  fi
+
+  if [[ -z "${BRANCH}" ]]; then
+    exit 1
+  fi
+
+  echo "${component}"
+}
+
+main "$@"

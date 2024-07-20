@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+# ┏━━━━━━┓
+# ┃ user ┃
+# ┗━━━━━━┛
+
+source "$(tmux display-message -p "#{config_files}" | xargs dirname)/status/globals"
+
+main() {
+  local component=""
+  component+="#[fg=${COLORS[CYAN]}]"
+  component+="${ICONS[SHADE]} "
+  component+="${ICONS[USER]} "
+  component+="#[fg=${COLORS[FOREGROUND]}]"
+  component+="$(whoami) "
+
+  echo "${component}"
+}
+main "$@"
