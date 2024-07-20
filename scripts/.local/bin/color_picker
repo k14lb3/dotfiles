@@ -1,0 +1,61 @@
+#!/usr/bin/env bash
+
+# ┏━━━━━━━━━━━━━━┓
+# ┃ color_picker ┃
+# ┗━━━━━━━━━━━━━━┛
+
+source "lib"
+
+print_usage() {
+  cat <<END
+Usage:
+  ${SCRIPT_NAME} [option]
+
+Options:
+  -h, --help  Show usage.
+END
+}
+
+pick_color() {
+  if [[ "$#" -ne 0 ]]; then
+    lib::print_invalid_argument_error "$1"
+    return 1
+  fi
+
+  lib::execute \
+    "hyprpicker -a" \
+    "Color copied to clipboard."
+}
+
+handle_option() {
+  case "$1" in
+    -h | --help)
+      if [[ "$#" -gt 1 ]]; then
+        lib::print_invalid_argument_error "$2"
+        return 1
+      fi
+
+      print_usage
+      return
+      ;;
+    *)
+      lib::print_error "Invalid \`$1\` option."
+      return 1
+      ;;
+  esac
+}
+
+main() {
+  if ! lib::lock; then
+    exit 1
+  fi
+
+  if lib::is_option "$1"; then
+    handle_option "$@"
+    exit
+  fi
+
+  pick_color "$@"
+}
+
+main "$@"

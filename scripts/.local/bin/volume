@@ -1,0 +1,175 @@
+#!/usr/bin/env bash
+
+# ┏━━━━━━━━┓
+# ┃ volume ┃
+# ┗━━━━━━━━┛
+
+source "lib"
+
+print_usage() {
+  cat <<END
+Usage:
+  ${SCRIPT_NAME} [option]
+  ${SCRIPT_NAME} <command>
+
+Options:
+  -h, --help                 Show usage.
+
+Commands:
+  increase [source] <value>  Increase volume.
+  decrease [source] <value>  Decrease volume.
+  mute [source]              Toggle mute.
+
+Sources:
+  -o, --output               Output device.
+  -i, --input                Input device.
+
+Command valid values:
+  Integer                    69
+  Percentage                 69%
+END
+}
+
+is_muted() {
+  local -r SOURCE="$1"
+
+  [[ "$(pamixer ${SOURCE} --get-mute 2>/dev/null)" == "true" ]]
+}
+
+mute() {
+  if [[ "$#" -eq 0 ]]; then
+    set -- $(lib::insert_value 1 "-o" "$@")
+  fi
+
+  local source
+  local source_label
+
+  case "$1" in
+    -i | --input)
+      source="--default-source"
+      source_label="Input"
+      shift
+      ;;
+    -o | --output)
+      source=""
+      source_label="Output"
+      shift
+      ;;
+    *)
+      lib::print_invalid_argument_error "$1"
+      return 1
+      ;;
+  esac
+
+  if [[ "$#" -ne 0 ]]; then
+    lib::print_invalid_argument_error "$1"
+    return 1
+  fi
+
+  lib::execute \
+    "pamixer ${source} -t" \
+    "${source_label} volume $(! is_muted "${source}" && echo "muted" || echo "unmuted")."
+}
+
+adjust() {
+  if [[ "$#" -eq 2 ]]; then
+    set -- $(lib::insert_value 2 "-o" "$@")
+  fi
+
+  local -r ACTION="$1"
+  shift
+
+  local source
+  local source_label
+
+  case "$1" in
+    -i | --input)
+      source="--default-source"
+      source_label="Input"
+      shift
+      ;;
+    -o | --output)
+      source=""
+      source_label="Output"
+      shift
+      ;;
+    *)
+      lib::print_invalid_argument_error "$2"
+      return 1
+      ;;
+  esac
+
+  local -r VALUE="${1%\%}"
+  shift
+
+  if ! lib::is_integer "${VALUE}"; then
+    lib::print_error "Input a valid value."
+    return 1
+  fi
+
+  if [[ "$#" -ne 0 ]]; then
+    lib::print_invalid_argument_error "$1"
+    return 1
+  fi
+
+  lib::execute \
+    "pamixer ${source} --${ACTION} ${VALUE}" \
+    "${source_label} volume increased by ${VALUE}%."
+}
+
+handle_command() {
+  case "$1" in
+    increase)
+      adjust "$@"
+      return
+      ;;
+    decrease)
+      adjust "$@"
+      return
+      ;;
+    mute)
+      shift
+      mute "$@"
+      return
+      ;;
+    *)
+      lib::print_error "Invalid \`$1\` command."
+      return 1
+      ;;
+  esac
+}
+
+handle_option() {
+  case "$1" in
+    -h | --help)
+      if [[ "$#" -gt 1 ]]; then
+        lib::print_invalid_argument_error "$2"
+        return 1
+      fi
+
+      print_usage
+      return
+      ;;
+    *)
+      lib::print_error "Invalid \`$1\` option."
+      return 1
+      ;;
+  esac
+}
+
+main() {
+  if lib::is_option "$1"; then
+    handle_option "$@"
+    exit
+  fi
+
+  if [[ -n "$1" ]]; then
+    handle_command "$@"
+    exit
+  fi
+
+  lib::print_error
+  exit 1
+}
+
+main "$@"
