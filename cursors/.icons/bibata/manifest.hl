@@ -1,0 +1,7 @@
+# ┏━━━━━━━━━━┓
+# ┃ manifest ┃
+# ┗━━━━━━━━━━┛
+
+name = Bibata
+version = 0.1
+cursors_directory = hyprcursors
