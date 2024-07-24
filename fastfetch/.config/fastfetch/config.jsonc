@@ -10,8 +10,9 @@
     "source": "~/.config/fastfetch/bonsai",
     "type": "file",
     "color": {
-      "1": "blue",
-      "2": "yellow"
+      "1": "green",
+      "2": "white",
+      "3": "blue"
     }
   },
   "display": {
