@@ -1,0 +1,37 @@
+# ┏━━━━━━━━━┓
+# ┃ lazygit ┃
+# ┗━━━━━━━━━┛
+
+gui:
+  border: single
+  theme:
+    activeBorderColor:
+      - '#789978'
+      - bold
+    inactiveBorderColor:
+      - '#444444'
+    searchingActiveBorderColor:
+      - '#708090'
+      - bold
+    optionsTextColor:
+      - '#7788AA'
+    selectedLineBgColor:
+      - '#2A2A2A'
+    cherryPickedCommitFgColor:
+      - '#7788AA'
+    cherryPickedCommitBgColor:
+      - '#708090'
+    markedBaseCommitFgColor:
+      - '#7788AA'
+    markedBaseCommitBgColor:
+      - '#FFAA88'
+    unstagedChangesColor:
+      - '#D70000'
+    defaultFgColor:
+      - '#DEEEED'
+git:
+  parseEmoji: true
+os:
+  editPreset: 'nvim'
+  open: 'zen-browser --new-window {{filename}}'
+  openLink: 'zen-browser --new-window {{link}}'
