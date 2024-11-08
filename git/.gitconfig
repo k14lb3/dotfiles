@@ -7,7 +7,7 @@
   email = k14lb3@gmail.com
 
 [core]
-  editor = vim
+  editor = nvim
 
 [include]
   path = ~/.config/local/.gitconfig
