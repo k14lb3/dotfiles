@@ -14,7 +14,7 @@ M.dependencies = {
   'williamboman/mason-lspconfig.nvim',
 }
 
-M.event = 'VeryLazy'
+M.lazy = false
 
 M.init = function()
   require('utils').create_autocmd({ 'LspAttach' }, {
