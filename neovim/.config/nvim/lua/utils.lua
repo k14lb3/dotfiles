@@ -57,6 +57,18 @@ M.is_function = function(value)
   return true
 end
 
+---Checks if the given string exists within the given array.
+---@param array string[]
+---@param string string
+---@return boolean
+M.is_string_in_array = function(array, string)
+  for _, value in ipairs(array) do
+    if value == string then return true end
+  end
+
+  return false
+end
+
 ---Checks if the current mode is visual mode.
 ---@return boolean
 M.is_in_visual_mode = function()
@@ -163,6 +175,19 @@ M.get_unsaved_buffers = function()
   end
 
   return unsaved_buffers
+end
+
+---Gets the LSP clients attached to the current buffer.
+---@return string[]
+M.get_current_buffer_lsp_clients = function()
+  local clients = vim.lsp.get_clients({ bufnr = vim.api.nvim_get_current_buf() })
+  local client_names = {}
+
+  for _, client in ipairs(clients) do
+    table.insert(client_names, client.name)
+  end
+
+  return client_names
 end
 
 ---Creates an autocommand event handler, defined by callback or command.
