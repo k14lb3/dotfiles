@@ -65,7 +65,7 @@ M.opts = function()
     sections = {
       lualine_b = {
         require('plugins.lualine.components.filename'),
-        require('plugins.lualine.components.harpoon'),
+        require('plugins.lualine.components.grapple'),
       },
       lualine_c = {
         require('plugins.lualine.components.recording'),
