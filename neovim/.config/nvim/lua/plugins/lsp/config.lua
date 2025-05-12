@@ -42,23 +42,6 @@ M.opts = function()
   return {
     mason_lspconfig = {
       ensure_installed = require('utils').get_table_keys(require('constants').LANGUAGE_SERVERS),
-      handlers = {
-        function(server)
-          local options = require('constants').LANGUAGE_SERVERS[server] or {}
-
-          if require('utils').is_function(options) then options = options(require('lspconfig')) end
-
-          options = vim.tbl_deep_extend('force', {
-            capabilities = vim.tbl_deep_extend(
-              'force',
-              vim.lsp.protocol.make_client_capabilities(),
-              require('cmp_nvim_lsp').default_capabilities()
-            ),
-          }, options)
-
-          require('lspconfig')[server].setup(options)
-        end,
-      },
     },
     vim_diagnostic = {
       severity_sort = true,
@@ -93,21 +76,32 @@ end
 
 M.config = function(_, opts)
   require('mason-lspconfig').setup(opts.mason_lspconfig)
+
+  vim.lsp.config('*', {
+    capabilities = require('utils').deep_merge(
+      vim.lsp.protocol.make_client_capabilities(),
+      require('cmp_nvim_lsp').default_capabilities()
+    ),
+  })
+
+  for server, options in pairs(require('constants').LANGUAGE_SERVERS) do
+    if require('utils').is_function(options) then options = options(require('lspconfig')) end
+
+    vim.lsp.config(server, options)
+  end
+
   vim.diagnostic.config(opts.vim_diagnostic)
 
-  require('lspconfig').sourcekit.setup({
-    capabilities = vim.tbl_deep_extend(
-      'force',
-      vim.lsp.protocol.make_client_capabilities(),
-      require('cmp_nvim_lsp').default_capabilities(),
-      {
-        workspace = {
-          didChangeWatchedFiles = {
-            dynamicRegistration = true,
-          },
+  vim.lsp.enable('sourcekit')
+  vim.lsp.config('sourcekit', {
+
+    capabilities = {
+      workspace = {
+        didChangeWatchedFiles = {
+          dynamicRegistration = true,
         },
-      }
-    ),
+      },
+    },
     cmd = { 'sourcekit-lsp' },
     filetypes = { 'swift', 'objc', 'objcpp', 'c', 'cpp' },
     root_dir = function(filename, _)
