@@ -1,0 +1,8 @@
+# ┏━━━━━━━━━━━┓
+# ┃ gitignore ┃
+# ┗━━━━━━━━━━━┛
+
+# ━ Local ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+scripts/.local/share
+scripts/.local/state
