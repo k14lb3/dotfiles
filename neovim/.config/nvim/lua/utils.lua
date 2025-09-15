@@ -139,6 +139,17 @@ M.is_matching_any_pattern = function(patterns, string)
   return false
 end
 
+---Checks if the given file or folder (marker) exists in the project root.
+---@param marker string|string[] Marker file(s) or folder(s) to look for in the root.
+---@return boolean
+M.is_file_in_root = function(marker)
+  local root = vim.fs.root(vim.loop.cwd(), marker)
+
+  if not root then return false end
+
+  return true
+end
+
 -- ━ Getters ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 ---Gets the value of a global variable.
