@@ -10,7 +10,7 @@ main() {
   local WINDOW_NUMBER="$1"
   local PANE_NUMBER="$2"
 
-  local WINDOW_NUMBER_STYLE="$(convert_number_format "${WINDOW_NUMBER}" "${NUMBER_FORMATS[DIGITAL]}")"
+  local WINDOW_NUMBER_STYLE="$(convert_number_format "${WINDOW_NUMBER}" "${NUMBER_FORMATS[PLAIN]}")"
   local PANE_NUMBER_STYLE="$(convert_number_format "${PANE_NUMBER}" "${NUMBER_FORMATS[HOLLOW_SQUARE]}")"
   local ZOOMED_PANE_NUMBER_STYLE="$(convert_number_format "${PANE_NUMBER}" "${NUMBER_FORMATS[HOLLOW_DOUBLE_SQUARE]}")"
 
