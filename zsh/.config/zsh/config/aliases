@@ -11,7 +11,7 @@ __zsh::config::aliases::misc() {
 }
 
 __zsh::config::aliases::general() {
-  alias mkdir="mkdir --parents"
+  alias mkdir="mkdir -p"
 }
 
 () {
