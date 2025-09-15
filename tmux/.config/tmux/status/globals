@@ -16,7 +16,7 @@ readonly -A COMPONENTS=(
   ["USER"]="#(${TMUX_CONFIG_DIRECTORY_PATH}/status/components/user)"
 )
 
-readonly -A NUMBER_FORMATS=(
+readonly -A NUMBER_STYLES=(
   ["PLAIN"]="0123456789"
   ["DIGITAL"]="🯰🯱🯲🯳🯴🯵🯶🯷🯸🯹"
   ["HOLLOW_SQUARE"]="󰎣󰎦󰎩󰎬󰎮󰎰󰎵󰎸󰎻󰎾"
@@ -70,22 +70,22 @@ COLORS["FOREGROUND"]="${COLORS["WHITE"]}"
 
 readonly -A COLORS
 
-convert_number_format() {
+convert_number_style() {
   local -r NUMBER="$1"
-  local -r FORMAT="$2"
+  local -r STYLE="$2"
 
-  if [[ -z "${FORMAT}" ]]; then
+  if [[ -z "${STYLE}" ]]; then
     echo "${NUMBER}"
     return
   fi
 
-  if [[ ! "${#FORMAT}" -eq 10 ]]; then
+  if [[ ! "${#STYLE}" -eq 10 ]]; then
     echo "${NUMBER}"
     return
   fi
 
   for ((index = 0; index < "${#NUMBER}"; index++)); do
-    echo -n "${FORMAT:"${NUMBER:${index}:1}":1}"
+    echo -n "${STYLE:"${NUMBER:${index}:1}":1}"
   done
 }
 readonly -f convert_number_format
