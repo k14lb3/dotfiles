@@ -18,9 +18,6 @@ end
 M.opts = function()
   return {
     notify_on_error = false,
-    default_format_opts = {
-      lsp_format = 'fallback',
-    },
     formatters_by_ft = {
       c = {
         'clang-format',
