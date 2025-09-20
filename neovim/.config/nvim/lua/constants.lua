@@ -182,8 +182,10 @@ M.LANGUAGE_SERVERS = {
   taplo = {},
   ts_ls = function(lspconfig)
     return {
-      commands = {
-        OrganizeImports = {
+      on_attach = function(_, buffer)
+        vim.api.nvim_buf_create_user_command(
+          buffer,
+          'OrganizeImports',
           function()
             vim.lsp.buf.execute_command({
               command = '_typescript.organizeImports',
@@ -192,10 +194,11 @@ M.LANGUAGE_SERVERS = {
               },
             })
           end,
-        },
-      },
-      root_dir = lspconfig.util.root_pattern('package.json'),
+          {}
+        )
+      end,
       single_file_support = false,
+      root_dir = lspconfig.util.root_pattern('tsconfig.json'),
     }
   end,
   yamlls = {},
