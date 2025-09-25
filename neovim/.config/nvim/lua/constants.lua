@@ -138,6 +138,27 @@ M.TREESITTER_PARSERS = {
   'yaml',
 }
 
+M.ROOT_MARKERS = {
+  -- https://biomejs.dev/reference/configuration/
+  BIOME = {
+    'biome.json',
+    'biome.jsonc',
+  },
+  -- https://docs.deno.com/runtime/fundamentals/configuration/
+  DENO = {
+    'deno.json',
+    'deno.jsonc',
+  },
+  ESLINT = {
+    'eslint.config.js',
+    'eslint.config.mjs',
+    'eslint.config.cjs',
+  },
+  RUFF = {
+    'pyproject.toml',
+  },
+}
+
 ---https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
 M.LANGUAGE_SERVERS = {
   bashls = {
