@@ -51,6 +51,10 @@ M.opts = function()
         'biome-check',
         'prettierd',
       },
+      jsonc = {
+        'biome-check',
+        'prettierd',
+      },
       lua = {
         'stylua',
       },
