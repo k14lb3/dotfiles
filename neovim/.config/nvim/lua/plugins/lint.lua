@@ -19,11 +19,6 @@ M.init = function()
       return
     end
 
-    if require('utils').is_string_in_array(current_buffer_lsp_clients, 'denols') then
-      require('lint').try_lint('deno')
-      return
-    end
-
     if require('utils').is_string_in_array(current_buffer_lsp_clients, 'pyright') then
       require('lint').try_lint('ruff')
       return

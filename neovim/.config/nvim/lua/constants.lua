@@ -144,11 +144,6 @@ M.ROOT_MARKERS = {
     'biome.json',
     'biome.jsonc',
   },
-  -- https://docs.deno.com/runtime/fundamentals/configuration/
-  DENO = {
-    'deno.json',
-    'deno.jsonc',
-  },
   ESLINT = {
     'eslint.config.js',
     'eslint.config.mjs',
@@ -171,11 +166,6 @@ M.LANGUAGE_SERVERS = {
   clangd = {},
   cssls = {},
   css_variables = {},
-  denols = function(lspconfig)
-    return {
-      root_dir = lspconfig.util.root_pattern('deno.json', 'deno.jsonc'),
-    }
-  end,
   eslint = {},
   html = {},
   jsonls = {},

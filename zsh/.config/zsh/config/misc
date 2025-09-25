@@ -4,10 +4,6 @@
 # ┃ misc ┃
 # ┗━━━━━━┛
 
-__zsh::config::misc::deno() {
-  source "${HOME}/.deno/env" &>/dev/null
-}
-
 __zsh::config::misc::nvm() {
   source "/usr/share/nvm/init-nvm.sh" &>/dev/null
 }
@@ -30,5 +26,4 @@ __zsh::config::misc::powerlevel10k() {
   __zsh::config::misc::zoxide
   __zsh::config::misc::thefuck
   __zsh::config::misc::nvm
-  __zsh::config::misc::deno
 }
