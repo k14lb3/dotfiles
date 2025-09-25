@@ -214,6 +214,7 @@ M.LANGUAGE_SERVERS = {
 
 ---https://mason-registry.dev/registry/list
 M.FORMATTERS = {
+  'biome',
   'clang-format',
   'isort',
   'prettierd',
@@ -225,6 +226,7 @@ M.FORMATTERS = {
 
 ---https://mason-registry.dev/registry/list
 M.LINTERS = {
+  'biome',
   'eslint_d',
   'ruff',
 }

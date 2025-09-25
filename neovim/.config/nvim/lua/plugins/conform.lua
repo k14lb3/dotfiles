@@ -32,18 +32,23 @@ M.opts = function()
         'shfmt',
       },
       css = {
+        'biome-check',
         'prettierd',
       },
       html = {
+        'biome-check',
         'prettierd',
       },
       javascript = {
+        'biome-check',
         'prettierd',
       },
       javascriptreact = {
+        'biome-check',
         'prettierd',
       },
       json = {
+        'biome-check',
         'prettierd',
       },
       lua = {
@@ -60,15 +65,19 @@ M.opts = function()
         'yapf',
       },
       scss = {
+        'biome-check',
         'prettierd',
       },
       typescript = {
+        'biome-check',
         'prettierd',
       },
       typescriptreact = {
+        'biome-check',
         'prettierd',
       },
       yaml = {
+        'biome-check',
         'prettierd',
       },
     },
@@ -96,7 +105,16 @@ M.opts = function()
           }
         end,
       },
+      ['biome-check'] = {
+        require_cwd = true,
+      },
       prettierd = {
+        condition = function(self, context)
+          -- https://github.com/stevearc/conform.nvim/blob/b4aab989db276993ea5dcb78872be494ce546521/lua/conform/formatters/biome-check.lua#L11-L14
+          if require('conform.formatters.biome-check').cwd(self, context) then return false end
+
+          return true
+        end,
         -- https://prettier.io/docs/en/options.html
         append_args = function(self, context)
           if require('conform.formatters.prettierd').cwd(self, context) then return {} end
