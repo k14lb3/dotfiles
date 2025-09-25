@@ -33,30 +33,24 @@ M.opts = function()
       },
       css = {
         'prettierd',
-        'deno_fmt',
       },
       html = {
         'prettierd',
-        'deno_fmt',
       },
       javascript = {
         'prettierd',
-        'deno_fmt',
       },
       javascriptreact = {
         'prettierd',
-        'deno_fmt',
       },
       json = {
         'prettierd',
-        'deno_fmt',
       },
       lua = {
         'stylua',
       },
       markdown = {
         'prettierd',
-        'deno_fmt',
       },
       mdx = {
         'prettierd',
@@ -67,36 +61,18 @@ M.opts = function()
       },
       scss = {
         'prettierd',
-        'deno_fmt',
       },
       typescript = {
         'prettierd',
-        'deno_fmt',
       },
       typescriptreact = {
         'prettierd',
-        'deno_fmt',
       },
       yaml = {
         'prettierd',
-        'deno_fmt',
       },
     },
     formatters = {
-      deno_fmt = {
-        -- https://docs.deno.com/runtime/fundamentals/configuration/
-        cwd = require('conform.util').root_file({ 'deno.json', 'deno.jsonc' }),
-        require_cwd = true,
-        -- https://docs.deno.com/runtime/reference/cli/formatter/#formatting-options
-        args = function()
-          return {
-            'fmt',
-            '-',
-            '--ext',
-            vim.fn.expand('%:e'),
-          }
-        end,
-      },
       shfmt = {
         -- https://github.com/mvdan/sh/blob/master/cmd/shfmt/shfmt.1.scd
         append_args = {
@@ -121,10 +97,6 @@ M.opts = function()
         end,
       },
       prettierd = {
-        -- https://docs.deno.com/runtime/fundamentals/configuration/
-        condition = function(self, context)
-          return not require('conform.util').root_file({ 'deno.json', 'deno.jsonc' })(self, context)
-        end,
         -- https://prettier.io/docs/en/options.html
         append_args = function(self, context)
           if require('conform.formatters.prettierd').cwd(self, context) then return {} end
