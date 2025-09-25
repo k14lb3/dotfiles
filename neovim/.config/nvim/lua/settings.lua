@@ -6,6 +6,8 @@ local main = function()
   -- ━ Globals ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
   require('utils').set_global('mapleader', ',')
+  require('utils').set_global(require('constants').GLOBALS.IS_LAZY_LOADED, false)
+  require('utils').set_global(require('constants').GLOBALS.IS_LINTING, false)
 
   -- ━ Options ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
