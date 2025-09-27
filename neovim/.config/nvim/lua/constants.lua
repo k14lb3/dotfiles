@@ -164,7 +164,19 @@ M.LANGUAGE_SERVERS = {
     },
   },
   clangd = {},
-  cssls = {},
+  cssls = {
+    settings = {
+      css = {
+        validate = false,
+      },
+      less = {
+        validate = false,
+      },
+      scss = {
+        validate = false,
+      },
+    },
+  },
   css_variables = {},
   eslint = {},
   html = {},
