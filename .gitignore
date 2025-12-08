@@ -6,3 +6,6 @@
 
 scripts/.local/share
 scripts/.local/state
+scripts/.local/bin/agent
+scripts/.local/bin/cursor
+scripts/.local/bin/cursor-agent
