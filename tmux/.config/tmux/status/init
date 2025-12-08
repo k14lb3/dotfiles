@@ -4,8 +4,7 @@
 # ┃ init ┃
 # ┗━━━━━━┛
 
-readonly TMUX_CONFIG_DIRECTORY_PATH="$(tmux display-message -p "#{config_files}" | xargs dirname)"
-source "${TMUX_CONFIG_DIRECTORY_PATH}/status/globals"
+source "${HOME}/.config/tmux/status/globals"
 
 main() {
 

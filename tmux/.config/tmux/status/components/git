@@ -4,7 +4,7 @@
 # ┃ git ┃
 # ┗━━━━━┛
 
-source "$(tmux display-message -p "#{config_files}" | xargs dirname)/status/globals"
+source "${HOME}/.config/tmux/status/globals"
 
 get_branch_icon() {
   local IS_BRANCH_DIRTY="$(git status --porcelain)"

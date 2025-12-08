@@ -4,7 +4,7 @@
 # ┃ globals ┃
 # ┗━━━━━━━━━┛
 
-readonly TMUX_CONFIG_DIRECTORY_PATH="$(tmux display-message -p "#{config_files}" | xargs dirname)"
+readonly TMUX_CONFIG_DIRECTORY_PATH="${HOME}/.config/tmux"
 
 readonly -A COMPONENTS=(
   ["SESSION"]="#(${TMUX_CONFIG_DIRECTORY_PATH}/status/components/session)"
@@ -88,4 +88,4 @@ convert_number_style() {
     echo -n "${STYLE:"${NUMBER:${index}:1}":1}"
   done
 }
-readonly -f convert_number_format
+readonly -f convert_number_style

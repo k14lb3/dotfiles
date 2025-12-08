@@ -4,7 +4,7 @@
 # ┃ user ┃
 # ┗━━━━━━┛
 
-source "$(tmux display-message -p "#{config_files}" | xargs dirname)/status/globals"
+source "${HOME}/.config/tmux/status/globals"
 
 main() {
   local component=""

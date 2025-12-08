@@ -4,7 +4,7 @@
 # ┃ current_window ┃
 # ┗━━━━━━━━━━━━━━━━┛
 
-source "$(tmux display-message -p "#{config_files}" | xargs dirname)/status/globals"
+source "${HOME}/.config/tmux/status/globals"
 
 main() {
   local WINDOW_NUMBER="$1"
