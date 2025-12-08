@@ -1,0 +1,4 @@
+[keyboard]
+bindings = [
+  { key = "Period", mods = "Control", chars = "\u001e" }
+]

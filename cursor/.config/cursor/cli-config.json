@@ -1,0 +1,80 @@
+{
+  "version": 1,
+  "model": {
+    "modelId": "claude-4.5-sonnet-thinking",
+    "displayModelId": "sonnet-4.5-thinking",
+    "displayName": "Claude 4.5 Sonnet (Thinking)",
+    "displayNameShort": "Sonnet 4.5 (Thinking)",
+    "aliases": ["sonnet-4.5-thinking"]
+  },
+  "hasChangedDefaultModel": true,
+  "editor": {
+    "vimMode": true
+  },
+  "permissions": {
+    "allow": [
+      "Shell(ls)",
+      "Shell(cat)",
+      "Shell(pwd)",
+      "Shell(cd)",
+      "Shell(tree)",
+      "Shell(find)",
+      "Shell(cp)",
+      "Shell(mv)",
+      "Shell(mkdir)",
+      "Shell(touch)",
+      "Shell(grep)",
+      "Shell(awk)",
+      "Shell(sed)",
+      "Shell(head)",
+      "Shell(tail)",
+      "Shell(git status)",
+      "Shell(git diff)",
+      "Shell(git log)",
+      "Shell(git add)",
+      "Shell(git commit)",
+      "Shell(git mv)",
+      "Shell(git pull)",
+      "Shell(git push)",
+      "Shell(git checkout)",
+      "Shell(git reset)",
+      "Shell(git show)",
+      "Shell(npm)",
+      "Shell(npm install)",
+      "Shell(npm ci)",
+      "Shell(npm run)",
+      "Shell(npm test)",
+      "Shell(npm build)",
+      "Shell(pnpm)",
+      "Shell(pnpm install)",
+      "Shell(pnpm run)",
+      "Shell(pnpm test)",
+      "Shell(pnpm build)",
+      "Shell(yarn)",
+      "Shell(yarn run)",
+      "Shell(node)",
+      "Shell(tsx)",
+      "Shell(jest)",
+      "Shell(whoami)",
+      "Shell(uname -a)",
+      "Shell(df -h)",
+      "Shell(top)",
+      "Shell(ps aux)",
+      "Shell(jq)"
+    ],
+    "deny": ["Shell(rm)", "Shell(git push --force)", "Shell(git push -f)"]
+  },
+  "approvalMode": "allowlist",
+  "sandbox": {
+    "mode": "disabled",
+    "networkAccess": "allowlist"
+  },
+  "network": {
+    "useHttp1ForAgent": false
+  },
+  "privacyCache": {
+    "ghostMode": true,
+    "privacyMode": 2,
+    "updatedAt": 1763133292710
+  }
+}

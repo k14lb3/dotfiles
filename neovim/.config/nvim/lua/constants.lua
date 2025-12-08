@@ -72,6 +72,7 @@ M.ICONS = {
   HINT = '',
   INFO = '',
   HOOK = '󰛢',
+  ROBOT = '󰚩',
   FILE = '',
   FILE_CODE = '',
   FILE_DOCUMENT = '󰧮',

@@ -9,7 +9,9 @@ import = [
   '~/.config/alacritty/window.toml',
   '~/.config/alacritty/scrolling.toml',
   '~/.config/alacritty/mouse.toml',
+  '~/.config/alacritty/keyboard.toml',
   '~/.config/alacritty/colors.toml',
   '~/.config/alacritty/font.toml',
   '~/.config/local/alacritty.toml',
 ]
+
