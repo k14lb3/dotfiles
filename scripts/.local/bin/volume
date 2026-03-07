@@ -119,11 +119,7 @@ adjust() {
 
 handle_command() {
   case "$1" in
-    increase)
-      adjust "$@"
-      return
-      ;;
-    decrease)
+    increase | decrease)
       adjust "$@"
       return
       ;;
