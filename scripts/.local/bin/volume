@@ -94,7 +94,7 @@ adjust() {
       shift
       ;;
     *)
-      lib::print_invalid_argument_error "$2"
+      lib::print_invalid_argument_error "$1"
       return 1
       ;;
   esac
