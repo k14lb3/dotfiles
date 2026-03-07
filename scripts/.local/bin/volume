@@ -114,7 +114,7 @@ adjust() {
 
   lib::execute \
     "pamixer ${source} --${ACTION} ${VALUE}" \
-    "${source_label} volume increased by ${VALUE}%."
+    "${source_label} volume ${ACTION}d by ${VALUE}%."
 }
 
 handle_command() {
