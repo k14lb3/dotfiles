@@ -8,7 +8,7 @@ __zsh::config::exports::misc() {
   export LANG="en_US.UTF-8"
   export TERMINAL="alacritty"
   export BROWSER="zen-browser"
-  export ZPLUG_HOME="${HOME}/.zplug"
+  export ZPLUG_HOME="${HOME}/.local/share/.zplug"
 }
 
 __zsh::config::exports::zsh() {
