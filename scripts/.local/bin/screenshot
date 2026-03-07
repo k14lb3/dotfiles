@@ -61,28 +61,6 @@ screenshot() {
     "Screenshot saved to \`${SAVE_DIRECTORY_PATH}\`."
 }
 
-handle_command() {
-  case "$1" in
-    screen)
-      screenshot output
-      return
-      ;;
-    area)
-      screenshot area
-      return
-      ;;
-    window)
-      screenshot active
-      return
-      ;;
-    *)
-      lib::print_error "Invalid \`$1\` command."
-      return 1
-      ;;
-  esac
-
-}
-
 handle_option() {
   case "$1" in
     -h | --help)
