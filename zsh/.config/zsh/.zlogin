@@ -6,6 +6,6 @@
 
 () {
   if [[ "$(tty)" == "/dev/tty1" ]]; then
-    Hyprland
+    start-hyprland
   fi
 }
