@@ -10,8 +10,6 @@ M.build = ':TSUpdate'
 
 M.lazy = false
 
-M.main = 'nvim-treesitter.configs'
-
 M.opts = function()
   return {
     ensure_installed = require('constants').TREESITTER_PARSERS,

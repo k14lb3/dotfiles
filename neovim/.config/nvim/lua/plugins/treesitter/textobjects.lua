@@ -10,8 +10,6 @@ M.dependencies = {
   'nvim-treesitter/nvim-treesitter',
 }
 
-M.main = 'nvim-treesitter.configs'
-
 M.event = 'VeryLazy'
 
 M.opts = function()
