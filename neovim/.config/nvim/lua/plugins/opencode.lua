@@ -67,7 +67,7 @@ M.opts = {
       ['/'] = { 'slash_commands', mode = 'i' },
       ['#'] = { 'context_items', mode = 'i' },
       ['<C-v>'] = { 'paste_image', mode = { 'n', 'i' } },
-      ['<Tab>'] = { 'switch_mode' },
+      ['<tab>'] = { 'switch_mode' },
       ['<C-f>'] = { 'select_session', mode = { 'n', 'i' } },
       ['<C-r>'] = { 'rename_session', mode = { 'n', 'i' } },
       ['<C-o>'] = { 'configure_provider', mode = { 'n', 'i' } },
