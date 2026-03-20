@@ -6,6 +6,8 @@ local M = {}
 
 M[1] = 'nvim-treesitter/nvim-treesitter-textobjects'
 
+M.branch = 'main'
+
 M.dependencies = {
   'nvim-treesitter/nvim-treesitter',
 }
