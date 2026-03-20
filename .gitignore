@@ -4,8 +4,8 @@
 
 # ━ Local ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-scripts/.local/share
-scripts/.local/state
-scripts/.local/bin/agent
-scripts/.local/bin/cursor
-scripts/.local/bin/cursor-agent
+*/.local/share
+*/.local/state
+*/.local/bin/agent
+*/.local/bin/cursor
+*/.local/bin/cursor-agent
