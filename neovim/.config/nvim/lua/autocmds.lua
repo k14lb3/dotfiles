@@ -39,6 +39,19 @@ local main = function()
           require('utils').set_keymap('n', 'q', require('utils').close, { buffer = event.buf })
         end,
       },
+    },
+    {
+      { 'FileType' },
+      {
+        group = require('utils').create_augroup('treesitter'),
+        pattern = require('constants').TREESITTER_PARSERS,
+        callback = function()
+          vim.treesitter.start()
+          require('utils').set_window_option('foldexpr', 'v:lua.vim.treesitter.foldexpr()')
+          require('utils').set_window_option('foldmethod', 'expr')
+          require('utils').set_buffer_option('indentexpr', "v:lua.require'nvim-treesitter'.indentexpr()")
+        end,
+      },
     }
   )
 end

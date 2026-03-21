@@ -236,6 +236,16 @@ M.set_global = function(name, value) vim.g[name] = value end
 ---@param value any
 M.set_option = function(name, value) vim.opt[name] = value end
 
+---Sets the value of a window option.
+---@param name string
+---@param value any
+M.set_window_option = function(name, value) vim.wo[name] = value end
+
+---Sets the value of a window option.
+---@param name string
+---@param value any
+M.set_buffer_option = function(name, value) vim.bo[name] = value end
+
 ---Sets the value of an option.
 ---@param ... [string, any]
 M.set_options = function(...)
