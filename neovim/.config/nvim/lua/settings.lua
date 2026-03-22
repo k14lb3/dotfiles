@@ -18,6 +18,8 @@ local main = function()
     { 'cursorline', true },
     { 'expandtab', true },
     { 'fillchars', 'eob: ' },
+    { 'foldenable', false },
+    { 'foldmethod', 'manual' },
     { 'history', 1000 },
     { 'hlsearch', true },
     { 'ignorecase', true },

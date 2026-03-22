@@ -47,8 +47,6 @@ local main = function()
         pattern = require('constants').TREESITTER_PARSERS,
         callback = function()
           vim.treesitter.start()
-          require('utils').set_window_option('foldexpr', 'v:lua.vim.treesitter.foldexpr()')
-          require('utils').set_window_option('foldmethod', 'expr')
           require('utils').set_buffer_option('indentexpr', "v:lua.require'nvim-treesitter'.indentexpr()")
         end,
       },
