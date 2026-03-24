@@ -14,11 +14,11 @@ local main = function()
       },
     },
     {
-      { 'FocusGained', 'TermClose', 'TermLeave' },
+      { 'FocusGained', 'BufEnter', 'CursorHold', 'CursorHoldI', 'TermClose', 'TermLeave' },
       {
         group = require('utils').create_augroup('check-buffer-changes'),
         callback = function()
-          if vim.o.buftype ~= 'nofile' then vim.cmd('checktime') end
+          if vim.bo.buftype == '' then vim.cmd('checktime') end
         end,
       },
     },
