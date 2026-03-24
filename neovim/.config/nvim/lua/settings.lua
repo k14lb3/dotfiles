@@ -12,6 +12,7 @@ local main = function()
   -- ━ Options ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
   require('utils').set_options(
+    { 'autoread', true },
     { 'backup', false },
     { 'clipboard', 'unnamedplus' },
     { 'completeopt', 'menuone,noinsert,noselect' },
