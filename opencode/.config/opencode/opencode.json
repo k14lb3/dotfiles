@@ -1,0 +1,18 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "provider": {
+    "cursor-acp": {
+      "name": "Cursor",
+      "npm": "@ai-sdk/openai-compatible",
+      "options": {
+        "baseURL": "http://127.0.0.1:32124/v1"
+      },
+      "models": {
+        "claude-4.6-sonnet-medium-thinking": {
+          "name": "Claude 4.6 Sonnet (Thinking)"
+        }
+      }
+    }
+  },
+  "plugin": ["cursor-acp"]
+}
