@@ -37,6 +37,9 @@ end
 M.opts = {
   cli = {
     win = {
+      split = {
+        width = 0.4,
+      },
       keys = {
         open_terminal = {
           '<C-\\>',
