@@ -64,12 +64,17 @@
     ],
     "deny": ["Shell(rm)", "Shell(git push --force)", "Shell(git push -f)"]
   },
+  "notifications": true,
+  "hints": true,
+  "rewind": false,
+  "suggestNextPrompt": false,
   "approvalMode": "allowlist",
   "sandbox": {
     "mode": "disabled",
-    "networkAccess": "allowlist"
+    "networkAccess": "user_config_with_defaults"
   },
   "network": {
     "useHttp1ForAgent": false
-  }
+  },
+  "runEverythingSettingsPromptStreak": 0
 }
