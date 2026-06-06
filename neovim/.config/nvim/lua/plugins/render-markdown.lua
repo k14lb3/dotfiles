@@ -6,6 +6,8 @@ local M = {}
 
 M[1] = 'MeanderingProgrammer/render-markdown.nvim'
 
+M.enabled = false
+
 M.opts = {
   anti_conceal = {
     enabled = false,

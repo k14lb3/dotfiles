@@ -6,6 +6,8 @@ local M = {}
 
 M[1] = 'sudo-tee/opencode.nvim'
 
+M.enabled = false
+
 M.event = 'VeryLazy'
 
 M.dependencies = {
