@@ -71,10 +71,5 @@
   },
   "network": {
     "useHttp1ForAgent": false
-  },
-  "privacyCache": {
-    "ghostMode": true,
-    "privacyMode": 2,
-    "updatedAt": 1763133292710
   }
 }
