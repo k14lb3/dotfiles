@@ -10,3 +10,11 @@
 */.local/bin/cursor
 */.local/bin/cursor-agent
 */.local/share/icons/hicolor
+
+# ━ Cursor ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+cursor/.config/cursor/auth.json
+cursor/.config/cursor/chats
+cursor/.config/cursor/cli-config.json
+cursor/.config/cursor/prompt_history.json
+cursor/.config/cursor/statsig-cache.json
