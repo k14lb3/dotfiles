@@ -9,6 +9,7 @@ __zsh::config::exports::misc() {
   export TERMINAL="alacritty"
   export BROWSER="zen-browser"
   export ZPLUG_HOME="${HOME}/.local/share/.zplug"
+  export ANDROID_HOME="${HOME}/Android/Sdk"
 }
 
 __zsh::config::exports::zsh() {
