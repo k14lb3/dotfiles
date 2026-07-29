@@ -8,6 +8,7 @@ __zsh::config::aliases::misc() {
   alias vim="nvim"
   alias rm="trash"
   alias ls="lsd"
+  alias huiontablet="/usr/lib/huiontablet/huiontablet.sh"
 }
 
 __zsh::config::aliases::general() {
