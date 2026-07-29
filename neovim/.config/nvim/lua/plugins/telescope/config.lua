@@ -51,6 +51,14 @@ M.init = function()
 end
 
 M.opts = function()
+  local grep_ignore_patterns = require('utils').concat(
+    require('constants').PATTERNS.IMAGE,
+    require('constants').PATTERNS.AUDIO,
+    require('constants').PATTERNS.VIDEO,
+    require('constants').PATTERNS.COMPRESSED,
+    { '%.git/' }
+  )
+
   return {
     telescope = {
       defaults = {
@@ -76,13 +84,7 @@ M.opts = function()
           '--column',
           '--smart-case',
         },
-        file_ignore_patterns = require('utils').concat(
-          require('constants').PATTERNS.IMAGE,
-          require('constants').PATTERNS.AUDIO,
-          require('constants').PATTERNS.VIDEO,
-          require('constants').PATTERNS.COMPRESSED,
-          { '%.git/' }
-        ),
+        file_ignore_patterns = { '%.git/' },
         mappings = {
           n = {
             ['<C-c>'] = require('telescope.actions').close,
@@ -97,6 +99,12 @@ M.opts = function()
       pickers = {
         find_files = {
           hidden = true,
+        },
+        live_grep = {
+          file_ignore_patterns = grep_ignore_patterns,
+        },
+        grep_string = {
+          file_ignore_patterns = grep_ignore_patterns,
         },
       },
       extensions = {
