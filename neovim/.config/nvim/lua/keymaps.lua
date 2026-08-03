@@ -87,6 +87,14 @@ local main = function()
         vim.cmd('let @+ = expand("%")')
         vim.notify('Filepath copied to clipboard.')
       end,
+    },
+    {
+      'n',
+      '<Leader>tw',
+      function()
+        vim.wo.wrap = not vim.wo.wrap
+        vim.notify(vim.wo.wrap and 'Wrap enabled.' or 'Wrap disabled.')
+      end,
     }
   )
 end
