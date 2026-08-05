@@ -1,11 +1,11 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
-  "model": "sonnet",
-  "effortLevel": "medium",
-  "editorMode": "vim",
-  "theme": "custom:lackluster",
   "attribution": {
     "commit": "",
     "pr": ""
-  }
+  },
+  "model": "sonnet",
+  "effortLevel": "medium",
+  "theme": "custom:lackluster",
+  "editorMode": "vim"
 }
