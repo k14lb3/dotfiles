@@ -30,6 +30,7 @@ __zsh::config::exports::history() {
 
 __zsh::config::exports::path() {
   export PATH="${HOME}/.local/bin:${PATH}"
+  export PATH="${HOME}/go/bin:${PATH}"
 }
 
 __zsh::config::exports::xdg() {
