@@ -72,7 +72,6 @@ M.opts = function()
         require('plugins.lualine.components.diagnostics'),
       },
       lualine_x = {
-        require('plugins.lualine.components.sidekick'),
         require('plugins.lualine.components.diff'),
         require('plugins.lualine.components.encoding'),
         require('plugins.lualine.components.fileformat'),
