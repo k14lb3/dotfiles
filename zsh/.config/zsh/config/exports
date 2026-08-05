@@ -10,7 +10,6 @@ __zsh::config::exports::misc() {
   export BROWSER="zen-browser"
   export ZPLUG_HOME="${HOME}/.local/share/.zplug"
   export ANDROID_HOME="${HOME}/Android/Sdk"
-  export ANTHROPIC_BASE_URL="https://openrouter.ai/api"
 }
 
 __zsh::config::exports::zsh() {
