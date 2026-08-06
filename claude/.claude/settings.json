@@ -5,10 +5,11 @@
     "pr": ""
   },
   "model": "sonnet",
+  "enabledPlugins": {
+    "lua-lsp@claude-plugins-official": true,
+    "typescript-lsp@claude-plugins-official": true
+  },
   "effortLevel": "medium",
   "theme": "custom:lackluster",
-  "editorMode": "vim",
-  "enabledPlugins": {
-    "lua-lsp@claude-plugins-official": true
-  }
+  "editorMode": "vim"
 }
