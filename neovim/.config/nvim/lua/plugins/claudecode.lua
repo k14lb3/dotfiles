@@ -56,6 +56,11 @@ M.opts = function()
       split_width_percentage = 0.4,
       snacks_win_opts = {
         keys = {
+          open_terminal = {
+            '<C-\\>',
+            function() require('toggleterm').toggle_command() end,
+            mode = 't',
+          },
           toggle = {
             '<Char-0x1e>',
             function()
