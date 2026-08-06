@@ -47,6 +47,37 @@ M.init = function()
       })
     end,
   })
+
+  local function is_claudecode_terminal_open()
+    local bufnr = require('claudecode.terminal').get_active_terminal_bufnr()
+    return bufnr and vim.fn.bufwinid(bufnr) ~= -1
+  end
+
+  require('utils').create_autocmds(
+    {
+      'User',
+      {
+        pattern = 'ClaudeCodeDiffOpened',
+        callback = function()
+          if is_claudecode_terminal_open() then vim.cmd('ClaudeCode') end
+          for _, win in ipairs(vim.api.nvim_list_wins()) do
+            if vim.bo[vim.api.nvim_win_get_buf(win)].filetype == 'oil' then
+              vim.api.nvim_win_close(win, false)
+            end
+          end
+        end,
+      },
+    },
+    {
+      'User',
+      {
+        pattern = 'ClaudeCodeDiffClosed',
+        callback = function()
+          if not is_claudecode_terminal_open() then vim.cmd('ClaudeCode') end
+        end,
+      },
+    }
+  )
 end
 
 M.opts = function()
@@ -103,6 +134,9 @@ M.opts = function()
           },
         },
       },
+    },
+    diff_opts = {
+      auto_resize_terminal = false,
     },
   }
 end
