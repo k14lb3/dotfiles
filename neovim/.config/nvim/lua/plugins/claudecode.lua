@@ -56,6 +56,14 @@ M.opts = function()
       split_width_percentage = 0.4,
       snacks_win_opts = {
         keys = {
+          toggle = {
+            '<Char-0x1e>',
+            function()
+              vim.cmd('stopinsert')
+              vim.cmd('ClaudeCode')
+            end,
+            mode = 't',
+          },
           move_left = {
             '<C-h>',
             function()
