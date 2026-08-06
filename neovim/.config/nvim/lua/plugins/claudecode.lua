@@ -30,7 +30,6 @@ M.cmd = {
 M.init = function()
   require('utils').set_keymaps(
     { 'n', '<Char-0x1e>', '<Cmd>ClaudeCode<CR>' },
-    { 'n', '<leader>.m', '<Cmd>ClaudeCodeSelectModel<CR>' },
     { 'n', '<leader>.f', '<Cmd>ClaudeCodeAdd %<CR>' },
     { 'v', '<leader>.t', '<Cmd>ClaudeCodeSend<CR>' },
     { 'n', '<leader>.t', '<cmd>.ClaudeCodeSend<cr>' },
