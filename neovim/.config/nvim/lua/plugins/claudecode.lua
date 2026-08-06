@@ -57,7 +57,7 @@ M.opts = function()
       split_width_percentage = 0.4,
       snacks_win_opts = {
         keys = {
-          nav_h = {
+          move_left = {
             '<C-h>',
             function()
               vim.cmd('stopinsert')
@@ -65,7 +65,7 @@ M.opts = function()
             end,
             mode = 't',
           },
-          nav_j = {
+          move_bottom = {
             '<C-j>',
             function()
               vim.cmd('stopinsert')
@@ -73,7 +73,7 @@ M.opts = function()
             end,
             mode = 't',
           },
-          nav_k = {
+          move_top = {
             '<C-k>',
             function()
               vim.cmd('stopinsert')
@@ -81,7 +81,7 @@ M.opts = function()
             end,
             mode = 't',
           },
-          nav_l = {
+          move_right = {
             '<C-l>',
             function()
               vim.cmd('stopinsert')
