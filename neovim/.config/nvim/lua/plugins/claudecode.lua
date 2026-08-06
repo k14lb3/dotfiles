@@ -37,23 +37,25 @@ M.init = function()
     { 'n', '<leader>.d', '<cmd>ClaudeCodeDiffDeny<CR>' }
   )
 
-  require('utils').create_autocmd('FileType', {
-    pattern = 'oil',
-    callback = function(event)
-      require('utils').set_buffer_keymaps(event.buf, {
-        'n',
-        '<leader>.f',
-        '<cmd>ClaudeCodeTreeAdd<CR>',
-      })
-    end,
-  })
-
   local function is_claudecode_terminal_open()
     local bufnr = require('claudecode.terminal').get_active_terminal_bufnr()
     return bufnr and vim.fn.bufwinid(bufnr) ~= -1
   end
 
   require('utils').create_autocmds(
+    {
+      'FileType',
+      {
+        pattern = 'oil',
+        callback = function(event)
+          require('utils').set_buffer_keymaps(event.buf, {
+            'n',
+            '<leader>.f',
+            '<cmd>ClaudeCodeTreeAdd<CR>',
+          })
+        end,
+      },
+    },
     {
       'User',
       {
