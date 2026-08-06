@@ -7,5 +7,8 @@
   "model": "sonnet",
   "effortLevel": "medium",
   "theme": "custom:lackluster",
-  "editorMode": "vim"
+  "editorMode": "vim",
+  "enabledPlugins": {
+    "lua-lsp@claude-plugins-official": true
+  }
 }
