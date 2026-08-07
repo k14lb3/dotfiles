@@ -6,9 +6,13 @@
 
 */.local/share
 */.local/state
-*/.local/bin/agent
-*/.local/bin/cursor
-*/.local/bin/cursor-agent
+*/.local/bin/*
+!*/.local/bin/brightness
+!*/.local/bin/color_picker
+!*/.local/bin/lib
+!*/.local/bin/resource_monitor
+!*/.local/bin/screenshot
+!*/.local/bin/volume
 */.local/share/icons/hicolor
 
 # ━ Cursor ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
