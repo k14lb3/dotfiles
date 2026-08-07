@@ -7,9 +7,13 @@
   "model": "sonnet",
   "enabledPlugins": {
     "lua-lsp@claude-plugins-official": true,
-    "typescript-lsp@claude-plugins-official": true
+    "typescript-lsp@claude-plugins-official": true,
+    "claude-mem@thedotmack": true
   },
   "effortLevel": "medium",
   "theme": "custom:lackluster",
-  "editorMode": "vim"
+  "editorMode": "vim",
+  "env": {
+    "CLAUDE_CODE_DISABLE_AUTO_MEMORY": "1"
+  }
 }
