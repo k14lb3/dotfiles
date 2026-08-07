@@ -42,44 +42,38 @@ M.init = function()
     return bufnr and vim.fn.bufwinid(bufnr) ~= -1
   end
 
-  require('utils').create_autocmds(
+  require('utils').create_autocmds({
+    'FileType',
     {
-      'FileType',
-      {
-        pattern = 'oil',
-        callback = function(event)
-          require('utils').set_buffer_keymaps(event.buf, {
-            'n',
-            '<leader>.f',
-            '<cmd>ClaudeCodeTreeAdd<CR>',
-          })
-        end,
-      },
+      pattern = 'oil',
+      callback = function(event)
+        require('utils').set_buffer_keymaps(event.buf, {
+          'n',
+          '<leader>.f',
+          '<cmd>ClaudeCodeTreeAdd<CR>',
+        })
+      end,
     },
+  }, {
+    'User',
     {
-      'User',
-      {
-        pattern = 'ClaudeCodeDiffOpened',
-        callback = function()
-          if is_claudecode_terminal_open() then vim.cmd('ClaudeCode') end
-          for _, win in ipairs(vim.api.nvim_list_wins()) do
-            if vim.bo[vim.api.nvim_win_get_buf(win)].filetype == 'oil' then
-              vim.api.nvim_win_close(win, false)
-            end
-          end
-        end,
-      },
+      pattern = 'ClaudeCodeDiffOpened',
+      callback = function()
+        if is_claudecode_terminal_open() then vim.cmd('ClaudeCode') end
+        for _, win in ipairs(vim.api.nvim_list_wins()) do
+          if vim.bo[vim.api.nvim_win_get_buf(win)].filetype == 'oil' then vim.api.nvim_win_close(win, false) end
+        end
+      end,
     },
+  }, {
+    'User',
     {
-      'User',
-      {
-        pattern = 'ClaudeCodeDiffClosed',
-        callback = function()
-          if not is_claudecode_terminal_open() then vim.cmd('ClaudeCode') end
-        end,
-      },
-    }
-  )
+      pattern = 'ClaudeCodeDiffClosed',
+      callback = function()
+        if not is_claudecode_terminal_open() then vim.cmd('ClaudeCode') end
+      end,
+    },
+  })
 end
 
 M.opts = function()
