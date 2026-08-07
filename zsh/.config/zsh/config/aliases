@@ -17,6 +17,10 @@ __zsh::config::aliases::misc() {
     alias ls="lsd"
   fi
 
+  if command -v headroom >/dev/null; then
+    alias claude="headroom wrap claude"
+  fi
+
   if [[ -f /usr/lib/huiontablet/huiontablet.sh ]]; then
     alias huiontablet="/usr/lib/huiontablet/huiontablet.sh"
   fi
