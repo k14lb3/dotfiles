@@ -85,6 +85,7 @@ end
 M.opts = function()
   return {
     focus_after_send = true,
+    terminal_cmd = vim.fn.executable('headroom') == 1 and 'headroom wrap claude' or nil,
     terminal = {
       split_width_percentage = 0.4,
       snacks_win_opts = {
