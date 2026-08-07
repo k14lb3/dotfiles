@@ -5,10 +5,21 @@
 # ┗━━━━━━━━━┛
 
 __zsh::config::aliases::misc() {
-  alias vim="nvim"
-  alias rm="trash"
-  alias ls="lsd"
-  alias huiontablet="/usr/lib/huiontablet/huiontablet.sh"
+  if command -v nvim >/dev/null; then
+    alias vim="nvim"
+  fi
+
+  if command -v trash >/dev/null; then
+    alias rm="trash"
+  fi
+
+  if command -v lsd >/dev/null; then
+    alias ls="lsd"
+  fi
+
+  if [[ -f /usr/lib/huiontablet/huiontablet.sh ]]; then
+    alias huiontablet="/usr/lib/huiontablet/huiontablet.sh"
+  fi
 }
 
 __zsh::config::aliases::general() {
