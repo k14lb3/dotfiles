@@ -24,6 +24,7 @@ local main = function()
     { 'history', 1000 },
     { 'hlsearch', true },
     { 'ignorecase', true },
+    { 'linebreak', true },
     { 'mouse', 'a' },
     { 'number', true },
     { 'relativenumber', true },
