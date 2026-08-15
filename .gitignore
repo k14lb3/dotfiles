@@ -15,6 +15,11 @@
 !*/.local/bin/volume
 */.local/share/icons/hicolor
 
+# ━ Agent ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+.claude/
+.serena/
+
 # ━ Cursor ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 cursor/.config/cursor/auth.json
