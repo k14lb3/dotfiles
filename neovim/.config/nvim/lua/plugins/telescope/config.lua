@@ -56,7 +56,7 @@ M.opts = function()
     require('constants').PATTERNS.AUDIO,
     require('constants').PATTERNS.VIDEO,
     require('constants').PATTERNS.COMPRESSED,
-    { '%.git/' }
+    { '%.git/', 'graft/', '%.serena/' }
   )
 
   return {
@@ -84,7 +84,7 @@ M.opts = function()
           '--column',
           '--smart-case',
         },
-        file_ignore_patterns = { '%.git/' },
+        file_ignore_patterns = { '%.git/', 'graft/', '%.serena/' },
         mappings = {
           n = {
             ['<C-c>'] = require('telescope.actions').close,
