@@ -30,11 +30,11 @@ M.cmd = {
 M.init = function()
   require('utils').set_keymaps(
     { 'n', '<Char-0x1e>', '<Cmd>ClaudeCode<CR>' },
-    { 'n', '<leader>.f', '<Cmd>ClaudeCodeAdd %<CR>' },
-    { 'v', '<leader>.t', '<Cmd>ClaudeCodeSend<CR>' },
-    { 'n', '<leader>.t', '<cmd>.ClaudeCodeSend<cr>' },
-    { 'n', '<leader>.a', '<cmd>ClaudeCodeDiffAccept<CR>' },
-    { 'n', '<leader>.d', '<cmd>ClaudeCodeDiffDeny<CR>' }
+    { 'n', '<Leader>.f', '<Cmd>ClaudeCodeAdd %<CR>' },
+    { 'v', '<Leader>.t', '<Cmd>ClaudeCodeSend<CR>' },
+    { 'n', '<Leader>.t', '<cmd>.ClaudeCodeSend<CR>' },
+    { 'n', '<Leader>.a', '<cmd>ClaudeCodeDiffAccept<CR>' },
+    { 'n', '<Leader>.d', '<cmd>ClaudeCodeDiffDeny<CR>' }
   )
 
   local function is_claudecode_terminal_open()
