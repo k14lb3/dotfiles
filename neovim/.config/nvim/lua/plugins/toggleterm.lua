@@ -25,6 +25,8 @@ M.init = function()
     end,
   })
 
+  vim.api.nvim_create_user_command('LazyGit', function() lazygit:toggle() end, {})
+
   require('utils').set_keymap('n', '<C-0>', function() lazygit:toggle() end)
 
   require('utils').create_autocmd({ 'TermOpen' }, {
