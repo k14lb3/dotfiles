@@ -15,6 +15,21 @@ M.dependencies = {
 M.event = 'VeryLazy'
 
 M.init = function()
+  local lazygit = require('toggleterm.terminal').Terminal:new({
+    cmd = 'lazygit',
+    hidden = true,
+    direction = 'float',
+    on_open = function(term)
+      vim.api.nvim_win_call(term.window, function() vim.fn.winrestview({ topline = 1, leftcol = 0 }) end)
+      require('utils').set_keymap('t', '<C-0>', function() term:toggle() end, { buffer = term.bufnr })
+    end,
+  })
+
+  local function toggle_lazygit() lazygit:toggle() end
+
+  vim.api.nvim_create_user_command('LazyGit', toggle_lazygit, {})
+  require('utils').set_keymap('n', '<C-0>', toggle_lazygit)
+
   require('utils').create_autocmd({ 'TermOpen' }, {
     pattern = { 'term://*' },
     callback = function(event) require('utils').set_keymap('t', '<C-]>', '<C-\\><C-n>', { buffer = event.buf }) end,
