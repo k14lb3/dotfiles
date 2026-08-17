@@ -130,7 +130,7 @@ M.opts = function()
             mode = 't',
           },
           lazygit = {
-            '<C-0>',
+            '<C-g>',
             function()
               vim.cmd('stopinsert')
               vim.cmd('LazyGit')
