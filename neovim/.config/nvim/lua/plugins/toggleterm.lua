@@ -25,10 +25,7 @@ M.init = function()
     end,
   })
 
-  local function toggle_lazygit() lazygit:toggle() end
-
-  vim.api.nvim_create_user_command('LazyGit', toggle_lazygit, {})
-  require('utils').set_keymap('n', '<C-0>', toggle_lazygit)
+  require('utils').set_keymap('n', '<C-0>', function() lazygit:toggle() end)
 
   require('utils').create_autocmd({ 'TermOpen' }, {
     pattern = { 'term://*' },
